@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mi cuenta · R/DEV</title>
+<meta name="description" content="Tu cuenta R/DEV: tu código de referido, tus recompensas, tu billetera y tus proyectos.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#050505">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201024%201024%22%3E%3Crect%20width%3D%221024%22%20height%3D%221024%22%20rx%3D%22190%22%20fill%3D%22%23FFD60A%22%2F%3E%3C%2Fsvg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Martian+Mono:wght@400;500&family=Unbounded:wght@600;700;800&display=swap">
+<style>
+:root{
+  --void:#050505; --char:#0B0B0C; --graphite:#111113; --steel:#1A1A1E;
+  --rule:#232327; --rule-2:#3A3A41; --mute:#8B8B93; --soft:#C2C2C8; --chalk:#F2F2EF;
+  --live:#3DDC84; --warn:#FF8A80; --volt:#FFD60A; --volt-ink:#0A0A0A; --info:#7FB2FF;
+  --display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"Martian Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --cut:12px; --gutter:clamp(16px,4vw,32px); --ease:cubic-bezier(.2,.8,.2,1);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;background:var(--void);color:var(--chalk);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+::selection{background:var(--volt);color:var(--volt-ink)}
+:focus-visible{outline:2px solid var(--volt);outline-offset:3px}
+h1,h2,h3{margin:0;font-family:var(--display);letter-spacing:-.03em;line-height:1.08}
+h1{font-size:clamp(1.6rem,5vw,2.4rem);font-weight:800}
+h2{font-size:1.15rem;font-weight:700}
+h3{font-size:.95rem;font-weight:600;letter-spacing:-.01em}
+p{margin:0}
+.wrap{width:100%;max-width:1100px;margin-inline:auto;padding-inline:var(--gutter)}
+.label{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.muted{color:var(--mute)}
+.soft{color:var(--soft)}
+.small{font-size:.86rem}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:20;background:rgba(5,5,5,.85);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--rule)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:12px;height:62px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--chalk)}
+.brand-tile{width:30px;height:30px}
+.brand-word{height:15px;width:auto}
+.nav-right{display:flex;align-items:center;gap:10px;min-width:0}
+.who{font-family:var(--mono);font-size:.62rem;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:38vw}
+
+/* buttons */
+.btn{--bg:var(--volt);--fg:var(--volt-ink);display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:0 22px;border:0;background:var(--bg);color:var(--fg);font-family:var(--display);font-weight:600;font-size:.78rem;letter-spacing:.01em;text-decoration:none;cursor:pointer;white-space:nowrap;
+  clip-path:polygon(var(--cut) 0,100% 0,100% calc(100% - var(--cut)),calc(100% - var(--cut)) 100%,0 100%,0 var(--cut));transition:background .2s,color .2s,opacity .2s}
+.btn:hover{--bg:#fff}
+.btn:disabled{opacity:.5;cursor:wait}
+.btn-ghost{--bg:var(--rule-2);--fg:var(--chalk)}
+.btn-ghost:hover{--bg:var(--chalk);--fg:var(--volt-ink)}
+.btn-sm{min-height:40px;padding:0 14px;font-size:.68rem;--cut:8px}
+.btn-block{width:100%}
+.link{background:none;border:0;padding:0;color:var(--volt);font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
+/* forms */
+.field{display:grid;gap:6px}
+.field label{font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--soft)}
+.input,select.input,textarea.input{width:100%;min-height:48px;padding:12px 14px;background:var(--graphite);border:1px solid var(--rule-2);color:var(--chalk);border-radius:0;outline:none;transition:border-color .2s}
+textarea.input{min-height:110px;resize:vertical}
+.input:focus{border-color:var(--volt)}
+.form{display:grid;gap:16px}
+.row2{display:grid;gap:16px}
+@media(min-width:620px){.row2{grid-template-columns:1fr 1fr}}
+.msg{padding:12px 14px;font-size:.9rem;border-left:3px solid var(--volt);background:var(--graphite)}
+.msg.err{border-color:var(--warn);color:#FFD2CD}
+.msg.ok{border-color:var(--live)}
+
+/* auth */
+.auth{display:grid;gap:clamp(28px,6vw,64px);padding-block:clamp(40px,8vw,90px);align-items:start}
+@media(min-width:900px){.auth{grid-template-columns:1.05fr .95fr}}
+.pitch{display:grid;gap:18px}
+.pitch h1 em{font-style:normal;color:var(--volt)}
+.steps{display:grid;gap:12px;margin:8px 0 0;padding:0;list-style:none}
+.steps li{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;color:var(--soft)}
+.steps b{display:grid;place-items:center;width:34px;height:34px;background:var(--steel);color:var(--volt);font-family:var(--mono);font-size:.75rem}
+.card{background:var(--char);border:1px solid var(--rule);padding:clamp(18px,4vw,28px)}
+.tabs{display:flex;border-bottom:1px solid var(--rule);margin-bottom:22px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;padding:12px 16px;background:none;border:0;border-bottom:2px solid transparent;font-family:var(--mono);font-size:.66rem;letter-spacing:.05em;text-transform:uppercase;color:var(--mute);cursor:pointer}
+.tab[aria-selected="true"]{color:var(--chalk);border-color:var(--volt)}
+.tab .count{display:inline-grid;place-items:center;min-width:18px;height:18px;margin-left:6px;padding:0 5px;background:var(--volt);color:var(--volt-ink);font-size:.58rem}
+
+/* dashboard */
+.dash{padding-block:clamp(28px,6vw,56px) 90px;display:grid;gap:22px}
+.dash-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:end}
+.grid{display:grid;gap:16px}
+@media(min-width:760px){.grid-3{grid-template-columns:repeat(3,1fr)}.grid-2{grid-template-columns:1fr 1fr}}
+.stat{background:var(--char);border:1px solid var(--rule);padding:18px;display:grid;gap:6px}
+.stat b{font-family:var(--display);font-size:1.7rem;font-weight:700;letter-spacing:-.03em}
+.stat.volt{background:var(--volt);color:var(--volt-ink);border-color:var(--volt)}
+.stat.volt .label{color:rgba(10,10,10,.65)}
+.code-box{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.code{font-family:var(--mono);font-size:1.3rem;font-weight:500;letter-spacing:.12em;color:var(--volt);padding:10px 14px;border:1px dashed var(--rule-2)}
+.share-link{font-family:var(--mono);font-size:.72rem;color:var(--soft);word-break:break-all}
+.list{display:grid;gap:10px}
+.item{background:var(--graphite);border:1px solid var(--rule);padding:14px 16px;display:grid;gap:10px}
+.item-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 14px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;font-family:var(--mono);font-size:.6rem;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--rule-2);color:var(--soft);white-space:nowrap}
+.badge::before{content:"";width:6px;height:6px;background:currentColor}
+.b-wait{color:var(--mute)}
+.b-act{color:var(--volt);border-color:var(--volt)}
+.b-prog{color:var(--info);border-color:#2C4A73}
+.b-ok{color:var(--live);border-color:#1F5A3A}
+.b-bad{color:var(--warn);border-color:#6B2E2A}
+.empty{padding:22px;border:1px dashed var(--rule-2);color:var(--mute);text-align:center;font-size:.92rem}
+.choose{display:grid;gap:12px;padding:14px;background:var(--steel);border:1px solid var(--volt)}
+.opts{display:grid;gap:10px}
+@media(min-width:620px){.opts{grid-template-columns:1fr 1fr}}
+.opt{display:grid;gap:4px;text-align:left;padding:14px;background:var(--graphite);border:1px solid var(--rule-2);cursor:pointer}
+.opt:hover,.opt[aria-pressed="true"]{border-color:var(--volt)}
+.opt b{font-family:var(--display);font-size:1.15rem}
+.opt.star b{color:var(--volt)}
+.how{display:grid;gap:8px;margin:0;padding-left:18px;color:var(--soft);font-size:.92rem}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{text-align:left;font-family:var(--mono);font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);font-weight:400;padding:8px 10px;border-bottom:1px solid var(--rule)}
+td{padding:10px;border-bottom:1px solid var(--rule);vertical-align:top}
+.table-wrap{overflow-x:auto;border:1px solid var(--rule);background:var(--char)}
+.inline{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.inline .input{min-height:40px;padding:8px 10px;width:auto;flex:1 1 120px}
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:7px 12px;background:var(--graphite);border:1px solid var(--rule-2);font-family:var(--mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.04em;color:var(--soft);cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--volt);color:var(--volt)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:60;max-width:calc(100% - 32px);padding:12px 16px;background:var(--chalk);color:var(--volt-ink);font-size:.9rem;font-weight:600;transform:translate(-50%,16px);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s var(--ease)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.loading{padding:80px 0;text-align:center;color:var(--mute);font-family:var(--mono);font-size:.7rem}
+.foot{padding:28px 0 40px;border-top:1px solid var(--rule);font-family:var(--mono);font-size:.6rem;color:var(--mute)}
+.foot a{color:var(--soft)}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="./" aria-label="R/DEV, volver al inicio"><svg class="brand-tile" aria-hidden="true" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><rect width="1024" height="1024" rx="190" fill="#FFD60A"/><path d="M293.02 630.80L293.02 383.30L458.67 383.30Q494.92 383.30 517.08 386.52Q539.23 389.75 550.67 397.64Q562.11 405.540 566.14 419.23Q570.17 432.93 570.17 453.88L570.17 460.32Q570.17 479.66 565.58 493.60Q560.98 507.53 547.930 516.15Q534.88 524.77 509.26 528.32L563.08 630.80L532.14 630.80L479.45 530.58Q476.23 530.74 472.76 530.74Q469.30 530.74 465.59 530.74L323.96 530.74L323.96 630.80L293.02 630.80M323.96 410.05L323.96 503.99L460.76 503.99Q488.31 503.99 504.19 502.14Q520.06 500.28 527.55 495.61Q535.04 490.94 537.14 482.40Q539.23 473.86 539.23 460.32L539.23 453.88Q539.23 438.57 536.33 429.71Q533.43 420.84 524.73 416.65Q516.03 412.47 498.79 411.26Q481.55 410.05 452.70 410.05M638.97 630.80L608.04 630.80L721.47 383.30L752.41 383.30" fill="#0A0A0A"/></svg><svg class="brand-word" aria-hidden="true" viewBox="-2 -2 446 104" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="rdBandC"><rect x="-80" y="0" width="400" height="100"/></clipPath></defs><g clip-path="url(#rdBandC)"><g fill="none" stroke-linejoin="miter" stroke="currentColor" stroke-width="20"><path d="M10,100 V10 H58 L72,24 V42 L58,56 H10"/><path d="M44,56 L72,84 V120"/></g></g><g transform="translate(94,0)" clip-path="url(#rdBandC)"><path d="M-9.2,120 L55.2,-20" fill="none" stroke="#FFD60A" stroke-width="13"/></g><g transform="translate(162,0)" clip-path="url(#rdBandC)"><path d="M10,10 V90 H54 L72,72 V28 L54,10 Z" fill="none" stroke="currentColor" stroke-width="20"/></g><g transform="translate(262,0)" clip-path="url(#rdBandC)"><g fill="none" stroke="currentColor" stroke-width="20"><path d="M74,10 H10 V90 H74"/><path d="M10,50 H62"/></g></g><g transform="translate(356,0)" clip-path="url(#rdBandC)"><path d="M10,-20 V30 L36,90 H48 L74,30 V-20" fill="none" stroke="currentColor" stroke-width="20"/></g></svg></a>
+    <div class="nav-right">
+      <span class="who" id="who"></span>
+      <button class="btn btn-ghost btn-sm" id="logoutBtn" type="button" hidden>Salir</button>
+      <a class="btn btn-ghost btn-sm" id="homeBtn" href="./">Ver la web</a>
+    </div>
+  </div>
+</header>
+
+<main id="app">
+  <div class="loading" id="loading">Cargando tu cuenta…</div>
+
+  <!-- ===== Acceso ===== -->
+  <section class="wrap auth" id="authView" hidden>
+    <div class="pitch">
+      <span class="label">rdev/cuenta</span>
+      <h1>Recomienda R/DEV y <em>gana</em> con cada cliente.</h1>
+      <p class="soft">Crea tu cuenta gratis, comparte tu enlace y cuando alguien que recomendaste contrate un proyecto, tú eliges tu recompensa.</p>
+      <ol class="steps">
+        <li><b>01</b><span>Crea tu cuenta y copia tu enlace de referido.</span></li>
+        <li><b>02</b><span>Compártelo con negocios que necesiten web, tienda o app.</span></li>
+        <li><b>03</b><span>Cuando tu referido pague, recibes <strong class="js-reward">$15</strong> por Binance, Zelle o bolívares, o <strong class="js-credit">$45</strong> de saldo para tus propios proyectos R/DEV.</span></li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" id="tabSignup" aria-selected="true" type="button" data-auth="signup">Crear cuenta</button>
+        <button class="tab" role="tab" id="tabLogin" aria-selected="false" type="button" data-auth="login">Entrar</button>
+      </div>
+
+      <form class="form" id="signupForm" novalidate>
+        <div class="field"><label for="suName">Nombre y apellido</label><input class="input" id="suName" autocomplete="name" required maxlength="80"></div>
+        <div class="field"><label for="suPhone">WhatsApp</label><input class="input" id="suPhone" type="tel" autocomplete="tel" placeholder="+58 4xx xxx xxxx" maxlength="30"></div>
+        <div class="field"><label for="suEmail">Correo</label><input class="input" id="suEmail" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="suPass">Contraseña (mínimo 8)</label><input class="input" id="suPass" type="password" autocomplete="new-password" minlength="8" required></div>
+        <div class="field"><label for="suRef">Código de quien te invitó (opcional)</label><input class="input" id="suRef" autocomplete="off" maxlength="12" style="text-transform:uppercase"></div>
+        <div class="msg err" id="suErr" hidden></div>
+        <button class="btn btn-block" type="submit">Crear mi cuenta</button>
+      </form>
+
+      <form class="form" id="loginForm" novalidate hidden>
+        <div class="field"><label for="liEmail">Correo</label><input class="input" id="liEmail" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="liPass">Contraseña</label><input class="input" id="liPass" type="password" autocomplete="current-password" required></div>
+        <div class="msg err" id="liErr" hidden></div>
+        <button class="btn btn-block" type="submit">Entrar</button>
+        <p class="small muted">¿Olvidaste tu contraseña? <button class="link" type="button" id="forgotBtn">Recupérala</button></p>
+      </form>
+
+      <form class="form" id="resetForm" novalidate hidden>
+        <h2>Nueva contraseña</h2>
+        <div class="field"><label for="rpPass">Contraseña nueva (mínimo 8)</label><input class="input" id="rpPass" type="password" autocomplete="new-password" minlength="8" required></div>
+        <div class="msg err" id="rpErr" hidden></div>
+        <button class="btn btn-block" type="submit">Guardar contraseña</button>
+      </form>
+
+      <div class="msg ok" id="authOk" hidden></div>
+    </div>
+  </section>
+
+  <!-- ===== Panel del usuario ===== -->
+  <section class="wrap dash" id="userView" hidden>
+    <div class="dash-head">
+      <div><span class="label">rdev/mi-cuenta</span><h1 id="hello">Hola</h1></div>
+    </div>
+    <div class="tabs" role="tablist" id="userTabs">
+      <button class="tab" role="tab" type="button" data-pane="uHome" aria-selected="true">Referidos</button>
+      <button class="tab" role="tab" type="button" data-pane="uWallet" aria-selected="false">Billetera</button>
+      <button class="tab" role="tab" type="button" data-pane="uReq" aria-selected="false">Mis proyectos</button>
+      <button class="tab" role="tab" type="button" data-pane="uProfile" aria-selected="false">Mis datos</button>
+    </div>
+
+    <div class="pane grid" id="uHome">
+      <div class="grid grid-3">
+        <div class="stat volt"><span class="label">Saldo R/DEV</span><b id="stWallet">$0</b><span class="small">para tus proyectos</span></div>
+        <div class="stat"><span class="label">Referidos</span><b id="stRefs">0</b><span class="small muted" id="stRefsPaid">0 ya compraron</span></div>
+        <div class="stat"><span class="label">Cobrado</span><b id="stCashed">$0</b><span class="small muted" id="stPending">$0 en camino</span></div>
+      </div>
+      <div class="card grid">
+        <span class="label">Tu código de referido</span>
+        <div class="code-box"><span class="code" id="myCode">——</span>
+          <button class="btn btn-sm" type="button" id="copyLink">Copiar enlace</button>
+          <a class="btn btn-ghost btn-sm" id="shareWa" target="_blank" rel="noopener" href="#">Compartir por WhatsApp</a>
+        </div>
+        <span class="share-link" id="myLink"></span>
+        <ol class="how">
+          <li>Quien entre con tu enlace y cree su cuenta queda como tu referido.</li>
+          <li>Cuando pague su proyecto, aquí te aparece para que elijas: cobrar <strong class="js-reward">$15</strong> o dejar <strong class="js-credit">$45</strong> de saldo (el triple).</li>
+          <li>Si eliges cobrar, recibes tu pago en un máximo de 48 horas.</li>
+        </ol>
+      </div>
+      <div class="grid">
+        <h2>Tus referidos</h2>
+        <div class="list" id="refList"></div>
+      </div>
+    </div>
+
+    <div class="pane grid" id="uWallet" hidden>
+      <div class="stat volt"><span class="label">Saldo disponible</span><b id="stWallet2">$0</b><span class="small">Úsalo como abono en cualquier proyecto con R/DEV. Al cotizar, dile a Rafael que quieres usar tu saldo.</span></div>
+      <h2>Movimientos</h2>
+      <div class="list" id="walletList"></div>
+    </div>
+
+    <div class="pane grid" id="uReq" hidden>
+      <div class="card">
+        <form class="form" id="reqForm" novalidate>
+          <h2>Pedir un proyecto</h2>
+          <div class="row2">
+            <div class="field"><label for="rqPlan">Plan</label>
+              <select class="input" id="rqPlan"><option>Esencial</option><option selected>Profesional</option><option>A la medida</option><option>No sé todavía</option></select></div>
+            <div class="field"><label for="rqBiz">Nombre del negocio</label><input class="input" id="rqBiz" maxlength="120"></div>
+          </div>
+          <div class="field"><label for="rqIg">Instagram del negocio (opcional)</label><input class="input" id="rqIg" maxlength="120" placeholder="@tunegocio"></div>
+          <div class="field"><label for="rqDesc">¿Qué necesitas?</label><textarea class="input" id="rqDesc" maxlength="2000" placeholder="Ej.: una web con catálogo y pedidos por WhatsApp"></textarea></div>
+          <div class="msg err" id="rqErr" hidden></div>
+          <button class="btn" type="submit">Enviar solicitud</button>
+        </form>
+      </div>
+      <h2>Tus solicitudes</h2>
+      <div class="list" id="reqList"></div>
+    </div>
+
+    <div class="pane grid" id="uProfile" hidden>
+      <div class="card">
+        <form class="form" id="profForm" novalidate>
+          <div class="row2">
+            <div class="field"><label for="pfName">Nombre y apellido</label><input class="input" id="pfName" maxlength="80"></div>
+            <div class="field"><label for="pfPhone">WhatsApp</label><input class="input" id="pfPhone" type="tel" maxlength="30"></div>
+          </div>
+          <div class="field"><label>Correo</label><input class="input" id="pfEmail" disabled></div>
+          <div class="msg err" id="pfErr" hidden></div>
+          <button class="btn" type="submit">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Panel del administrador ===== -->
+  <section class="wrap dash" id="adminView" hidden>
+    <div class="dash-head">
+      <div><span class="label">rdev/admin</span><h1>Panel de administrador</h1></div>
+    </div>
+    <div class="tabs" role="tablist" id="adminTabs">
+      <button class="tab" role="tab" type="button" data-pane="aSum" aria-selected="true">Resumen</button>
+      <button class="tab" role="tab" type="button" data-pane="aRefs" aria-selected="false">Referidos<span class="count" id="cntPay" hidden></span></button>
+      <button class="tab" role="tab" type="button" data-pane="aReqs" aria-selected="false">Solicitudes<span class="count" id="cntReq" hidden></span></button>
+      <button class="tab" role="tab" type="button" data-pane="aUsers" aria-selected="false">Usuarios</button>
+      <button class="tab" role="tab" type="button" data-pane="aSet" aria-selected="false">Ajustes</button>
+    </div>
+
+    <div class="pane grid" id="aSum">
+      <div class="grid grid-3">
+        <div class="stat"><span class="label">Usuarios</span><b id="aUsersN">0</b></div>
+        <div class="stat"><span class="label">Ventas por referidos</span><b id="aSales">$0</b><span class="small muted" id="aSalesN"></span></div>
+        <div class="stat volt"><span class="label">Pagos por hacer</span><b id="aToPay">$0</b><span class="small" id="aToPayN"></span></div>
+      </div>
+      <div class="grid grid-2">
+        <div class="stat"><span class="label">Recompensas pagadas</span><b id="aPaid">$0</b></div>
+        <div class="stat"><span class="label">Saldo en billeteras</span><b id="aCredit">$0</b><span class="small muted">lo que debes en servicios</span></div>
+      </div>
+      <h2>Pagos pendientes (48 h)</h2>
+      <div class="list" id="aPayList"></div>
+    </div>
+
+    <div class="pane grid" id="aRefs" hidden>
+      <div class="filters" id="refFilters">
+        <button class="chip" type="button" data-f="" aria-pressed="true">Todos</button>
+        <button class="chip" type="button" data-f="registrado" aria-pressed="false">Sin compra</button>
+        <button class="chip" type="button" data-f="pago" aria-pressed="false">Esperando elección</button>
+        <button class="chip" type="button" data-f="cobro_pendiente" aria-pressed="false">Por pagar</button>
+        <button class="chip" type="button" data-f="recompensa_pagada" aria-pressed="false">Pagados</button>
+        <button class="chip" type="button" data-f="en_saldo" aria-pressed="false">En saldo</button>
+      </div>
+      <div class="list" id="aRefList"></div>
+    </div>
+
+    <div class="pane grid" id="aReqs" hidden>
+      <div class="list" id="aReqList"></div>
+    </div>
+
+    <div class="pane grid" id="aUsers" hidden>
+      <input class="input" id="userSearch" placeholder="Buscar por nombre, correo o código">
+      <div class="table-wrap"><table><thead><tr><th>Usuario</th><th>Código</th><th>Referidos</th><th>Saldo</th><th>Usar saldo</th></tr></thead><tbody id="aUserRows"></tbody></table></div>
+    </div>
+
+    <div class="pane grid" id="aSet" hidden>
+      <div class="card">
+        <form class="form" id="setForm" novalidate>
+          <h2>Recompensa por referido</h2>
+          <div class="row2">
+            <div class="field"><label for="setReward">Monto fijo (USD)</label><input class="input" id="setReward" type="number" min="0" step="0.5"></div>
+            <div class="field"><label for="setMult">Multiplicador si lo deja en saldo</label><input class="input" id="setMult" type="number" min="1" step="0.5"></div>
+          </div>
+          <p class="small muted" id="setPreview"></p>
+          <p class="small muted">El cambio aplica a los referidos que marques como pagados desde ahora. Los anteriores conservan su monto.</p>
+          <button class="btn" type="submit">Guardar ajustes</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot"><div class="wrap">R/DEV · <a href="./">rmgdev1939.github.io</a> · Tus datos solo los ves tú y el administrador de R/DEV.</div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+(() => {
+"use strict";
+// Clave pública (anon): es segura en el navegador; los permisos los controla la base de datos.
+const SB_URL = "https://omcjxtfyxzjhioljjvam.supabase.co";
+const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9tY2p4dGZ5eHpqaGlvbGpqdmFtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3MTcxMDgsImV4cCI6MjEwODI5MzEwOH0.mDHwpYTZCHOF-sgKl64W1NYZ7NE2z1uGc_TNAf4EbzA";
+const SITE = "https://rmgdev1939.github.io/";
+const sb = window.supabase.createClient(SB_URL, SB_KEY);
+
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const nf = new Intl.NumberFormat("es-VE", { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+const usd = n => "$" + nf.format(Number(n) || 0);
+const fdate = d => d ? new Date(d).toLocaleDateString("es-VE", { day: "numeric", month: "short", year: "numeric" }) : "";
+const fdt = d => d ? new Date(d).toLocaleString("es-VE", { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" }) : "";
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+  del(k) { try { localStorage.removeItem(k); } catch (e) {} }
+};
+let toastT;
+const toast = t => { const el = $("#toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove("on"), 2600); };
+const showErr = (el, e) => { el.textContent = typeof e === "string" ? e : niceError(e); el.hidden = false; };
+const niceError = e => {
+  const m = (e && (e.message || e.error_description)) || String(e);
+  if (/Invalid login credentials/i.test(m)) return "Correo o contraseña incorrectos.";
+  if (/already registered|already been registered/i.test(m)) return "Ese correo ya tiene cuenta. Usa «Entrar».";
+  if (/Email not confirmed/i.test(m)) return "Primero confirma tu correo con el enlace que te enviamos.";
+  if (/Password should be/i.test(m)) return "La contraseña debe tener al menos 8 caracteres.";
+  if (/rate limit/i.test(m)) return "Demasiados intentos. Espera unos minutos.";
+  if (/Failed to fetch|NetworkError/i.test(m)) return "Sin conexión. Revisa tu internet e intenta de nuevo.";
+  return m;
+};
+const busy = async (btn, fn) => { btn.disabled = true; try { await fn(); } finally { btn.disabled = false; } };
+
+const REF_LABEL = {
+  registrado: ["Registrado · aún no compra", "b-wait"],
+  pago: ["¡Compró! Elige tu recompensa", "b-act"],
+  cobro_pendiente: ["Pago en camino", "b-prog"],
+  recompensa_pagada: ["Recompensa pagada", "b-ok"],
+  en_saldo: ["En tu billetera", "b-ok"]
+};
+const REQ_LABEL = {
+  recibida: ["Recibida", "b-act"], en_progreso: ["En progreso", "b-prog"],
+  entregada: ["Entregada", "b-ok"], cancelada: ["Cancelada", "b-bad"]
+};
+const badge = (map, k) => { const [t, c] = map[k] || [k, ""]; return `<span class="badge ${c}">${esc(t)}</span>`; };
+const METHODS = ["Binance", "Zelle", "Bs (tasa BCV)"];
+const METHOD_HINT = { "Binance": "Tu correo o ID de Binance Pay", "Zelle": "Correo o teléfono de Zelle y nombre del titular", "Bs (tasa BCV)": "Pago móvil: banco, cédula y teléfono" };
+
+let settings = { reward_amount: 15, credit_multiplier: 3 };
+let me = null;
+
+// ----- código de referido que llega por enlace -----
+const qp = new URLSearchParams(location.search);
+const refIn = (qp.get("ref") || "").trim().toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 12);
+if (refIn) store.set("rdev_ref", refIn);
+
+function applySettingsText() {
+  const r = Number(settings.reward_amount), c = r * Number(settings.credit_multiplier);
+  $$(".js-reward").forEach(el => el.textContent = usd(r));
+  $$(".js-credit").forEach(el => el.textContent = usd(c));
+}
+async function loadSettings() {
+  const { data } = await sb.from("settings").select("reward_amount,credit_multiplier").eq("id", 1).maybeSingle();
+  if (data) settings = data;
+  applySettingsText();
+}
+
+// ----- tabs -----
+function wireTabs(root) {
+  $$(".tab", root).forEach(t => t.addEventListener("click", () => {
+    $$(".tab", root).forEach(x => x.setAttribute("aria-selected", x === t ? "true" : "false"));
+    $$(".tab", root).forEach(x => { const p = document.getElementById(x.dataset.pane); if (p) p.hidden = x !== t; });
+  }));
+}
+wireTabs($("#userTabs")); wireTabs($("#adminTabs"));
+
+// ----- vistas -----
+function show(view) {
+  $("#loading").hidden = true;
+  ["authView", "userView", "adminView"].forEach(v => document.getElementById(v).hidden = v !== view);
+  $("#logoutBtn").hidden = view === "authView";
+  $("#homeBtn").hidden = view !== "authView";
+}
+function authMode(mode) {
+  $("#signupForm").hidden = mode !== "signup";
+  $("#loginForm").hidden = mode !== "login";
+  $("#resetForm").hidden = mode !== "reset";
+  $(".tabs", $("#authView")).hidden = mode === "reset";
+  $("#tabSignup").setAttribute("aria-selected", mode === "signup");
+  $("#tabLogin").setAttribute("aria-selected", mode === "login");
+  $$(".msg", $("#authView")).forEach(m => m.hidden = true);
+}
+$$("[data-auth]").forEach(b => b.addEventListener("click", () => authMode(b.dataset.auth)));
+
+// ----- registro / acceso -----
+$("#suRef").value = store.get("rdev_ref") || "";
+$("#signupForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const err = $("#suErr"); err.hidden = true;
+  const name = $("#suName").value.trim(), email = $("#suEmail").value.trim(), pass = $("#suPass").value;
+  if (name.length < 2) return showErr(err, "Escribe tu nombre.");
+  if (!/^\S+@\S+\.\S+$/.test(email)) return showErr(err, "Escribe un correo válido.");
+  if (pass.length < 8) return showErr(err, "La contraseña debe tener al menos 8 caracteres.");
+  busy(e.submitter || $("#signupForm button[type=submit]"), async () => {
+    const { data, error } = await sb.auth.signUp({
+      email, password: pass,
+      options: { emailRedirectTo: SITE + "cuenta.html", data: { full_name: name, phone: $("#suPhone").value.trim(), ref: $("#suRef").value.trim().toUpperCase() } }
+    });
+    if (error) return showErr(err, error);
+    store.del("rdev_ref");
+    if (!data.session) {
+      $("#signupForm").hidden = true;
+      const ok = $("#authOk"); ok.textContent = "¡Listo! Te enviamos un correo a " + email + ". Abre el enlace para activar tu cuenta y luego entra."; ok.hidden = false;
+    }
+  });
+});
+$("#loginForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const err = $("#liErr"); err.hidden = true;
+  busy(e.submitter || $("#loginForm button[type=submit]"), async () => {
+    const { error } = await sb.auth.signInWithPassword({ email: $("#liEmail").value.trim(), password: $("#liPass").value });
+    if (error) showErr(err, error);
+  });
+});
+$("#forgotBtn").addEventListener("click", async () => {
+  const err = $("#liErr"); err.hidden = true;
+  const email = $("#liEmail").value.trim();
+  if (!/^\S+@\S+\.\S+$/.test(email)) return showErr(err, "Escribe tu correo arriba y vuelve a tocar «Recupérala».");
+  const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: SITE + "cuenta.html" });
+  if (error) return showErr(err, error);
+  const ok = $("#authOk"); ok.textContent = "Si ese correo tiene cuenta, te llegará un enlace para crear una contraseña nueva."; ok.hidden = false;
+});
+$("#resetForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const err = $("#rpErr"); err.hidden = true;
+  const pass = $("#rpPass").value;
+  if (pass.length < 8) return showErr(err, "Mínimo 8 caracteres.");
+  busy(e.submitter || $("#resetForm button[type=submit]"), async () => {
+    const { error } = await sb.auth.updateUser({ password: pass });
+    if (error) return showErr(err, error);
+    toast("Contraseña actualizada");
+    recovering = false; boot();
+  });
+});
+$("#logoutBtn").addEventListener("click", async () => { await sb.auth.signOut(); });
+
+// ================= PANEL USUARIO =================
+async function loadUser() {
+  const uid = me.id;
+  const [refs, wallet, reqs] = await Promise.all([
+    sb.from("referrals").select("*").eq("referrer_id", uid).order("created_at", { ascending: false }),
+    sb.from("wallet_movements").select("*").eq("user_id", uid).order("created_at", { ascending: false }),
+    sb.from("requests").select("*").eq("user_id", uid).order("created_at", { ascending: false })
+  ]);
+  const R = refs.data || [], W = wallet.data || [], Q = reqs.data || [];
+  const bal = W.reduce((s, m) => s + Number(m.amount), 0);
+  $("#hello").textContent = "Hola, " + ((me.full_name || "").split(" ")[0] || "bienvenido");
+  $("#stWallet").textContent = usd(bal); $("#stWallet2").textContent = usd(bal);
+  $("#stRefs").textContent = R.length;
+  $("#stRefsPaid").textContent = R.filter(r => r.status !== "registrado").length + " ya compraron";
+  $("#stCashed").textContent = usd(R.filter(r => r.status === "recompensa_pagada").reduce((s, r) => s + Number(r.reward_amount), 0));
+  $("#stPending").textContent = usd(R.filter(r => r.status === "cobro_pendiente").reduce((s, r) => s + Number(r.reward_amount), 0)) + " en camino";
+
+  const link = SITE + "?ref=" + me.ref_code;
+  $("#myCode").textContent = me.ref_code; $("#myLink").textContent = link;
+  $("#shareWa").href = "https://wa.me/?text=" + encodeURIComponent("¿Necesitas página web, tienda online o app para tu negocio? Te recomiendo R/DEV, la tienes lista en horas: " + link);
+
+  $("#refList").innerHTML = R.length ? R.map(refItem).join("") :
+    `<div class="empty">Todavía no tienes referidos. Comparte tu enlace con negocios que necesiten presencia digital.</div>`;
+  $("#walletList").innerHTML = W.length ? W.map(m => `<div class="item"><div class="item-top"><span>${esc(m.note || (m.kind === "uso" ? "Uso de saldo" : "Movimiento"))}</span><b style="color:${m.amount > 0 ? "var(--live)" : "var(--warn)"}">${m.amount > 0 ? "+" : ""}${usd(m.amount)}</b></div><span class="small muted">${fdate(m.created_at)}</span></div>`).join("") :
+    `<div class="empty">Aquí verás el saldo que ganes al dejar tus recompensas en la billetera (vale el triple).</div>`;
+  $("#reqList").innerHTML = Q.length ? Q.map(q => `<div class="item"><div class="item-top"><h3>${esc(q.plan)}${q.business ? " · " + esc(q.business) : ""}</h3>${badge(REQ_LABEL, q.status)}</div>${q.description ? `<p class="small soft">${esc(q.description)}</p>` : ""}${q.admin_note ? `<p class="small"><span class="label">Nota de Rafael</span><br>${esc(q.admin_note)}</p>` : ""}<span class="small muted">Enviada el ${fdate(q.created_at)}</span></div>`).join("") :
+    `<div class="empty">Aún no has pedido proyectos.</div>`;
+
+  $("#pfName").value = me.full_name || ""; $("#pfPhone").value = me.phone || ""; $("#pfEmail").value = me.email || "";
+}
+
+function refItem(r) {
+  let extra = "";
+  if (r.status === "pago") {
+    const c = Number(r.reward_amount) * Number(settings.credit_multiplier);
+    extra = `<div class="choose" data-ref="${r.id}">
+      <h3>Tu referido pagó. ¿Qué prefieres?</h3>
+      <div class="opts">
+        <button class="opt" type="button" data-choice="cobrar" aria-pressed="false"><span class="label">Cobrar</span><b>${usd(r.reward_amount)}</b><span class="small muted">Por Binance, Zelle o bolívares</span></button>
+        <button class="opt star" type="button" data-choice="saldo" aria-pressed="false"><span class="label">Dejar en saldo · x${nf.format(settings.credit_multiplier)}</span><b>${usd(c)}</b><span class="small muted">Para tus propios proyectos R/DEV</span></button>
+      </div>
+      <form class="form" data-cash hidden>
+        <div class="field"><label>Método de pago</label><select class="input" name="method">${METHODS.map(m => `<option>${m}</option>`).join("")}</select></div>
+        <div class="field"><label>Datos para el pago</label><input class="input" name="details" maxlength="200" placeholder="${esc(METHOD_HINT.Binance)}"></div>
+        <div class="msg err" hidden></div>
+        <button class="btn" type="submit">Solicitar mi pago</button>
+      </form>
+      <div data-credit hidden class="form">
+        <p class="small soft">Se sumarán <b>${usd(c)}</b> a tu billetera R/DEV. Esta elección no se puede cambiar.</p>
+        <div class="msg err" hidden></div>
+        <button class="btn" type="button" data-confirm>Sí, dejar en saldo</button>
+      </div>
+    </div>`;
+  } else if (r.status === "cobro_pendiente") {
+    const until = new Date(new Date(r.chosen_at).getTime() + 48 * 3600e3);
+    extra = `<div class="msg ok">Recibirás tu pago de <b>${usd(r.reward_amount)}</b> por ${esc(r.payout_method)} en un máximo de 48 horas (antes del ${fdt(until)}).</div>`;
+  } else if (r.status === "recompensa_pagada") {
+    extra = `<span class="small muted">Te pagamos ${usd(r.reward_amount)} por ${esc(r.payout_method)} el ${fdate(r.reward_paid_at)}.</span>`;
+  } else if (r.status === "en_saldo") {
+    extra = `<span class="small muted">Sumaste ${usd(r.credit_amount)} a tu billetera el ${fdate(r.chosen_at)}.</span>`;
+  }
+  return `<div class="item"><div class="item-top"><h3>${esc(r.referred_name)}</h3>${badge(REF_LABEL, r.status)}</div><span class="small muted">Se registró el ${fdate(r.created_at)}</span>${extra}</div>`;
+}
+
+$("#refList").addEventListener("click", e => {
+  const box = e.target.closest(".choose"); if (!box) return;
+  const opt = e.target.closest(".opt");
+  if (opt) {
+    $$(".opt", box).forEach(o => o.setAttribute("aria-pressed", o === opt ? "true" : "false"));
+    $("[data-cash]", box).hidden = opt.dataset.choice !== "cobrar";
+    $("[data-credit]", box).hidden = opt.dataset.choice !== "saldo";
+    return;
+  }
+  const conf = e.target.closest("[data-confirm]");
+  if (conf) busy(conf, async () => {
+    const { error } = await sb.rpc("choose_reward", { p_referral: Number(box.dataset.ref), p_choice: "saldo" });
+    if (error) return showErr($("[data-credit] .msg", box), error);
+    toast("¡Saldo agregado a tu billetera!"); loadUser();
+  });
+});
+$("#refList").addEventListener("change", e => {
+  if (e.target.name === "method") e.target.form.details.placeholder = METHOD_HINT[e.target.value] || "";
+});
+$("#refList").addEventListener("submit", e => {
+  e.preventDefault();
+  const f = e.target, box = f.closest(".choose"), err = $(".msg", f); err.hidden = true;
+  if (f.details.value.trim().length < 3) return showErr(err, "Escribe a dónde te enviamos el pago.");
+  busy($("button[type=submit]", f), async () => {
+    const { error } = await sb.rpc("choose_reward", { p_referral: Number(box.dataset.ref), p_choice: "cobrar", p_method: f.method.value, p_details: f.details.value.trim() });
+    if (error) return showErr(err, error);
+    toast("Listo. Recibirás tu pago en un máximo de 48 horas."); loadUser();
+  });
+});
+
+$("#copyLink").addEventListener("click", async () => {
+  const t = $("#myLink").textContent;
+  try { await navigator.clipboard.writeText(t); toast("Enlace copiado"); }
+  catch (e) { const r = document.createRange(); r.selectNodeContents($("#myLink")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast("Mantén presionado para copiar"); }
+});
+
+$("#reqForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const err = $("#rqErr"); err.hidden = true;
+  const desc = $("#rqDesc").value.trim();
+  if (desc.length < 5) return showErr(err, "Cuéntanos qué necesitas.");
+  busy($("#reqForm button[type=submit]"), async () => {
+    const { error } = await sb.from("requests").insert({ user_id: me.id, plan: $("#rqPlan").value, business: $("#rqBiz").value.trim(), instagram: $("#rqIg").value.trim(), description: desc });
+    if (error) return showErr(err, error);
+    $("#reqForm").reset(); toast("Solicitud enviada. Rafael te escribirá pronto."); loadUser();
+  });
+});
+
+$("#profForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const err = $("#pfErr"); err.hidden = true;
+  busy($("#profForm button[type=submit]"), async () => {
+    const { data, error } = await sb.from("profiles").update({ full_name: $("#pfName").value.trim(), phone: $("#pfPhone").value.trim() }).eq("id", me.id).select().single();
+    if (error) return showErr(err, error);
+    me = data; toast("Datos guardados"); $("#hello").textContent = "Hola, " + ((me.full_name || "").split(" ")[0] || "bienvenido");
+  });
+});
+
+// ================= PANEL ADMIN =================
+let A = { users: [], refs: [], reqs: [], wallet: [] }, refFilter = "";
+async function loadAdmin() {
+  const [u, r, q, w] = await Promise.all([
+    sb.from("profiles").select("*").order("created_at", { ascending: false }),
+    sb.from("referrals").select("*").order("created_at", { ascending: false }),
+    sb.from("requests").select("*").order("created_at", { ascending: false }),
+    sb.from("wallet_movements").select("*").order("created_at", { ascending: false })
+  ]);
+  A = { users: u.data || [], refs: r.data || [], reqs: q.data || [], wallet: w.data || [] };
+  renderAdmin();
+}
+const uById = id => A.users.find(u => u.id === id) || {};
+const uName = id => { const u = uById(id); return u.full_name || u.email || "—"; };
+const balOf = id => A.wallet.filter(m => m.user_id === id).reduce((s, m) => s + Number(m.amount), 0);
+const waLink = phone => { const d = String(phone || "").replace(/\D/g, ""); return d ? `<a href="https://wa.me/${d}" target="_blank" rel="noopener">${esc(phone)}</a>` : ""; };
+
+function renderAdmin() {
+  const sold = A.refs.filter(r => r.status !== "registrado");
+  const toPay = A.refs.filter(r => r.status === "cobro_pendiente");
+  const newReq = A.reqs.filter(q => q.status === "recibida");
+  $("#aUsersN").textContent = A.users.length;
+  $("#aSales").textContent = usd(sold.reduce((s, r) => s + Number(r.sale_amount || 0), 0));
+  $("#aSalesN").textContent = sold.length + " clientes referidos";
+  $("#aToPay").textContent = usd(toPay.reduce((s, r) => s + Number(r.reward_amount), 0));
+  $("#aToPayN").textContent = toPay.length ? toPay.length + " por pagar" : "Nada pendiente";
+  $("#aPaid").textContent = usd(A.refs.filter(r => r.status === "recompensa_pagada").reduce((s, r) => s + Number(r.reward_amount), 0));
+  $("#aCredit").textContent = usd(A.wallet.reduce((s, m) => s + Number(m.amount), 0));
+  $("#cntPay").hidden = !toPay.length; $("#cntPay").textContent = toPay.length;
+  $("#cntReq").hidden = !newReq.length; $("#cntReq").textContent = newReq.length;
+  $("#aPayList").innerHTML = toPay.length ? toPay.map(adminRef).join("") : `<div class="empty">No hay pagos pendientes.</div>`;
+  const list = refFilter ? A.refs.filter(r => r.status === refFilter) : A.refs;
+  $("#aRefList").innerHTML = list.length ? list.map(adminRef).join("") : `<div class="empty">No hay referidos aquí.</div>`;
+  $("#aReqList").innerHTML = A.reqs.length ? A.reqs.map(adminReq).join("") : `<div class="empty">No hay solicitudes todavía.</div>`;
+  renderUsers();
+  $("#setReward").value = settings.reward_amount; $("#setMult").value = settings.credit_multiplier; setPreview();
+}
+
+function adminRef(r) {
+  const ref = uById(r.referrer_id), cli = uById(r.referred_id);
+  let act = "";
+  if (r.status === "registrado") {
+    act = `<form class="inline" data-act="paid" data-id="${r.id}"><input class="input" name="amount" type="number" min="0" step="0.01" placeholder="Monto que pagó (USD)" required><button class="btn btn-sm" type="submit">Marcar que pagó</button></form>`;
+  } else if (r.status === "pago") {
+    act = `<span class="small muted">Esperando que ${esc((ref.full_name || "el usuario").split(" ")[0])} elija: cobrar ${usd(r.reward_amount)} o ${usd(r.reward_amount * settings.credit_multiplier)} en saldo.</span>
+      <div class="inline"><button class="btn btn-ghost btn-sm" type="button" data-act="undo" data-id="${r.id}">Deshacer «pagó»</button></div>`;
+  } else if (r.status === "cobro_pendiente") {
+    const until = new Date(new Date(r.chosen_at).getTime() + 48 * 3600e3);
+    act = `<div class="msg"><b>Pagar ${usd(r.reward_amount)} por ${esc(r.payout_method)}</b><br>${esc(r.payout_details)}<br><span class="small muted">Pidió el pago el ${fdt(r.chosen_at)} · plazo hasta ${fdt(until)}</span></div>
+      <div class="inline"><button class="btn btn-sm" type="button" data-act="done" data-id="${r.id}">Ya le pagué</button></div>`;
+  } else if (r.status === "recompensa_pagada") {
+    act = `<span class="small muted">Pagaste ${usd(r.reward_amount)} por ${esc(r.payout_method)} el ${fdate(r.reward_paid_at)} · ${esc(r.payout_details)}</span>`;
+  } else if (r.status === "en_saldo") {
+    act = `<span class="small muted">Lo dejó en saldo: ${usd(r.credit_amount)} el ${fdate(r.chosen_at)}</span>`;
+  }
+  return `<div class="item"><div class="item-top"><h3>${esc(ref.full_name || ref.email || "—")} → ${esc(cli.full_name || cli.email || r.referred_name)}</h3>${badge(REF_LABEL, r.status)}</div>
+    <span class="small muted">Refiere: ${esc(ref.email || "")} ${waLink(ref.phone)} · Cliente: ${esc(cli.email || "")} ${waLink(cli.phone)}${r.sale_amount ? " · Pagó " + usd(r.sale_amount) : ""}</span>${act}</div>`;
+}
+
+function adminReq(q) {
+  const u = uById(q.user_id);
+  return `<div class="item"><div class="item-top"><h3>${esc(q.plan)}${q.business ? " · " + esc(q.business) : ""}</h3>${badge(REQ_LABEL, q.status)}</div>
+    <span class="small muted">${esc(u.full_name || "")} · ${esc(u.email || "")} ${waLink(u.phone)}${q.instagram ? " · IG " + esc(q.instagram) : ""} · ${fdate(q.created_at)}</span>
+    ${q.description ? `<p class="small soft">${esc(q.description)}</p>` : ""}
+    <form class="inline" data-act="req" data-id="${q.id}">
+      <select class="input" name="status">${Object.keys(REQ_LABEL).map(k => `<option value="${k}"${k === q.status ? " selected" : ""}>${REQ_LABEL[k][0]}</option>`).join("")}</select>
+      <input class="input" name="note" maxlength="300" placeholder="Nota para el usuario" value="${esc(q.admin_note)}">
+      <button class="btn btn-sm" type="submit">Guardar</button>
+    </form></div>`;
+}
+
+function renderUsers() {
+  const t = ($("#userSearch").value || "").toLowerCase();
+  const rows = A.users.filter(u => !t || [u.full_name, u.email, u.ref_code].join(" ").toLowerCase().includes(t));
+  $("#aUserRows").innerHTML = rows.map(u => {
+    const n = A.refs.filter(r => r.referrer_id === u.id).length, b = balOf(u.id);
+    return `<tr><td><b>${esc(u.full_name || "—")}</b>${u.role === "admin" ? ' <span class="badge b-act">admin</span>' : ""}<br><span class="small muted">${esc(u.email)}</span> ${waLink(u.phone)}${u.referred_by ? `<br><span class="small muted">Invitado por ${esc(uName(u.referred_by))}</span>` : ""}</td>
+      <td><code>${esc(u.ref_code)}</code></td><td>${n}</td><td>${usd(b)}</td>
+      <td>${b > 0 ? `<form class="inline" data-act="use" data-id="${u.id}"><input class="input" name="amount" type="number" min="0.01" max="${b}" step="0.01" placeholder="Monto" required><input class="input" name="note" maxlength="200" placeholder="¿En qué proyecto?"><button class="btn btn-sm" type="submit">Descontar</button></form>` : '<span class="small muted">—</span>'}</td></tr>`;
+  }).join("") || `<tr><td colspan="5" class="muted">Sin resultados</td></tr>`;
+}
+$("#userSearch").addEventListener("input", renderUsers);
+$("#refFilters").addEventListener("click", e => {
+  const c = e.target.closest(".chip"); if (!c) return;
+  refFilter = c.dataset.f; $$(".chip", $("#refFilters")).forEach(x => x.setAttribute("aria-pressed", x === c ? "true" : "false")); renderAdmin();
+});
+
+async function adminDo(btn, fn, okMsg) {
+  await busy(btn, async () => {
+    const { error } = await fn();
+    if (error) return toast(niceError(error));
+    toast(okMsg); await loadAdmin();
+  });
+}
+$("#adminView").addEventListener("submit", e => {
+  e.preventDefault();
+  const f = e.target, id = f.dataset.id, btn = $("button[type=submit]", f);
+  if (f.dataset.act === "paid") {
+    const amount = Number(f.amount.value); if (!(amount > 0)) return toast("Escribe cuánto pagó el cliente");
+    adminDo(btn, () => sb.from("referrals").update({ status: "pago", sale_amount: amount }).eq("id", id), "Marcado. El usuario ya puede elegir su recompensa.");
+  } else if (f.dataset.act === "req") {
+    adminDo(btn, () => sb.from("requests").update({ status: f.status.value, admin_note: f.note.value.trim() }).eq("id", id), "Solicitud actualizada");
+  } else if (f.dataset.act === "use") {
+    const amount = Number(f.amount.value); if (!(amount > 0)) return toast("Escribe el monto");
+    adminDo(btn, () => sb.from("wallet_movements").insert({ user_id: id, amount: -amount, kind: "uso", note: f.note.value.trim() || "Abono a proyecto R/DEV" }), "Saldo descontado");
+  } else if (f.id === "setForm") {
+    const reward = Number($("#setReward").value), mult = Number($("#setMult").value);
+    if (!(reward >= 0) || !(mult >= 1)) return toast("Revisa los valores");
+    adminDo(btn, async () => {
+      const res = await sb.from("settings").update({ reward_amount: reward, credit_multiplier: mult }).eq("id", 1);
+      if (!res.error) { settings = { reward_amount: reward, credit_multiplier: mult }; applySettingsText(); }
+      return res;
+    }, "Ajustes guardados");
+  }
+});
+$("#adminView").addEventListener("click", e => {
+  const b = e.target.closest("button[data-act]"); if (!b) return;
+  const id = b.dataset.id;
+  if (b.dataset.act === "done") adminDo(b, () => sb.from("referrals").update({ status: "recompensa_pagada" }).eq("id", id), "Marcado como pagado");
+  if (b.dataset.act === "undo") adminDo(b, () => sb.from("referrals").update({ status: "registrado", sale_amount: null }).eq("id", id), "Deshecho");
+});
+const setPreview = () => {
+  const r = Number($("#setReward").value) || 0, m = Number($("#setMult").value) || 1;
+  $("#setPreview").textContent = `Cada referido que pague: ${usd(r)} si cobra, o ${usd(r * m)} si lo deja en saldo.`;
+};
+$("#setReward").addEventListener("input", setPreview); $("#setMult").addEventListener("input", setPreview);
+
+// ================= ARRANQUE =================
+let recovering = /type=recovery/.test(location.hash);
+async function boot() {
+  const { data: { session } } = await sb.auth.getSession();
+  if (recovering && session) { show("authView"); authMode("reset"); return; }
+  if (!session) { me = null; $("#who").textContent = ""; show("authView"); authMode(store.get("rdev_ref") ? "signup" : (qp.get("modo") === "entrar" ? "login" : "signup")); return; }
+  const { data: prof, error } = await sb.from("profiles").select("*").eq("id", session.user.id).maybeSingle();
+  if (error || !prof) { show("authView"); authMode("login"); showErr($("#liErr"), error || "No encontramos tu perfil. Escríbenos por Instagram a @rdev.lab."); return; }
+  me = prof;
+  $("#who").textContent = me.email;
+  if (me.role === "admin") { show("adminView"); await loadAdmin(); }
+  else { show("userView"); await loadUser(); }
+}
+sb.auth.onAuthStateChange((ev, session) => {
+  if (ev === "PASSWORD_RECOVERY") { recovering = true; show("authView"); authMode("reset"); return; }
+  if (ev === "SIGNED_IN" && me && session && session.user.id === me.id) return;
+  if (ev === "SIGNED_IN" || ev === "SIGNED_OUT") setTimeout(boot, 0);
+});
+loadSettings().catch(() => applySettingsText());
+boot().catch(e => { show("authView"); authMode("login"); showErr($("#liErr"), e); });
+})();
+</script>
+</body>
+</html>
