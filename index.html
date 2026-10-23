@@ -534,6 +534,14 @@ input[type=range]{width:100%;height:28px;margin:0;background:transparent;accent-
 .faq details p{padding:0 0 22px;color:var(--soft);max-width:64ch}
 
 /* ---------- contact + footer ---------- */
+.ref-grid{display:grid;gap:16px}
+@media(min-width:760px){.ref-grid{grid-template-columns:1fr 1fr}}
+.ref-card{display:grid;gap:10px;padding:clamp(20px,4vw,32px);background:var(--char);border:1px solid var(--rule)}
+.ref-card b{font-family:var(--display);font-size:clamp(2.4rem,8vw,4rem);font-weight:800;letter-spacing:-.05em;line-height:1}
+.ref-card p{color:var(--soft)}
+.ref-card.star{background:var(--volt);color:var(--volt-ink);border-color:var(--volt)}
+.ref-card.star .label,.ref-card.star p{color:rgba(10,10,10,.72)}
+.ref-cta{margin-top:28px}
 .contact .big{font-size:clamp(2.6rem,11vw,7.4rem);font-weight:800;letter-spacing:-.06em;line-height:.95;margin:18px 0 24px}
 .contact .lead{margin-bottom:28px}
 .num-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin-top:34px;padding-top:22px;border-top:1px solid var(--paper-rule)}
@@ -576,7 +584,7 @@ input[type=range]{width:100%;height:28px;margin:0;background:transparent;accent-
   <div class="wrap nav-in">
     <a class="brand" href="#hero" aria-label="R/DEV, ir al inicio"><svg class="brand-tile" aria-hidden="true" focusable="false" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><rect width="1024" height="1024" rx="190" fill="#FFD60A"/><path d="M293.02 630.80L293.02 383.30L458.67 383.30Q494.92 383.30 517.08 386.52Q539.23 389.75 550.67 397.64Q562.11 405.54 566.14 419.23Q570.17 432.93 570.17 453.88L570.17 460.32Q570.17 479.66 565.58 493.60Q560.98 507.53 547.930 516.15Q534.88 524.77 509.26 528.32L563.08 630.80L532.14 630.80L479.45 530.58Q476.23 530.74 472.76 530.74Q469.30 530.74 465.59 530.74L323.96 530.74L323.96 630.80L293.02 630.80M323.96 410.05L323.96 503.99L460.76 503.99Q488.31 503.99 504.19 502.14Q520.06 500.28 527.55 495.61Q535.04 490.94 537.14 482.40Q539.23 473.86 539.23 460.32L539.23 453.88Q539.23 438.57 536.33 429.71Q533.43 420.84 524.73 416.65Q516.03 412.47 498.79 411.26Q481.55 410.05 452.70 410.05M638.97 630.80L608.04 630.80L721.47 383.30L752.41 383.30" fill="#0A0A0A"/></svg><svg class="brand-word" aria-hidden="true" focusable="false" viewBox="-2 -2 446 104" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="rdBandN"><rect x="-80" y="0" width="400" height="100"/></clipPath></defs><g transform="translate(0,0)" clip-path="url(#rdBandN)"><g fill="none" stroke-linejoin="miter" stroke-miterlimit="8" stroke="currentColor" stroke-width="20"><path d="M10,100 V10 H58 L72,24 V42 L58,56 H10"/><path d="M44,56 L72,84 V120"/></g></g><g transform="translate(94,0)" clip-path="url(#rdBandN)"><g fill="none" stroke-linejoin="miter" stroke-miterlimit="8" stroke="var(--volt)" stroke-width="13"><path d="M-9.2,120 L55.2,-20"/></g></g><g transform="translate(162,0)" clip-path="url(#rdBandN)"><g fill="none" stroke-linejoin="miter" stroke-miterlimit="8" stroke="currentColor" stroke-width="20"><path d="M10,10 V90 H54 L72,72 V28 L54,10 Z"/></g></g><g transform="translate(262,0)" clip-path="url(#rdBandN)"><g fill="none" stroke-linejoin="miter" stroke-miterlimit="8" stroke="currentColor" stroke-width="20"><path d="M74,10 H10 V90 H74"/><path d="M10,50 H62"/></g></g><g transform="translate(356,0)" clip-path="url(#rdBandN)"><g fill="none" stroke-linejoin="miter" stroke-miterlimit="8" stroke="currentColor" stroke-width="20"><path d="M10,-20 V30 L36,90 H48 L74,30 V-20"/></g></g></svg></a>
     <nav class="nav-links" aria-label="Secciones">
-      <a href="#demos">Demos</a><a href="#servicios">Servicios</a><a href="#proyectos">Proyectos</a><a href="#planes">Planes</a><a href="#preguntas">Preguntas</a>
+      <a href="#demos">Demos</a><a href="#servicios">Servicios</a><a href="#proyectos">Proyectos</a><a href="#planes">Planes</a><a href="#referidos">Referidos</a><a href="#preguntas">Preguntas</a><a href="cuenta.html?modo=entrar">Mi cuenta</a>
     </nav>
     <div class="nav-actions">
       <a class="btn btn-sm magnet" href="#cotizar">Cotizar</a>
@@ -592,7 +600,9 @@ input[type=range]{width:100%;height:28px;margin:0;background:transparent;accent-
     <a href="#proyectos">Proyectos <small>rdev/proyectos</small></a>
     <a href="#planes">Planes <small>rdev/planes</small></a>
     <a href="#cotizar">Cotizar <small>rdev/cotizar</small></a>
+    <a href="#referidos">Referidos <small>rdev/referidos</small></a>
     <a href="#preguntas">Preguntas <small>rdev/preguntas</small></a>
+    <a href="cuenta.html?modo=entrar">Mi cuenta <small>rdev/cuenta</small></a>
   </nav>
   <div class="menu-foot">
     <span class="label">WhatsApp · +58 422-684-3422 · IG @rdev.lab</span>
@@ -960,6 +970,25 @@ input[type=range]{width:100%;height:28px;margin:0;background:transparent;accent-
   </div>
 </section>
 
+<!-- REFERIDOS -->
+<section id="referidos">
+  <div class="wrap">
+    <div class="head">
+      <span class="path">rdev/<b>referidos</b></span>
+      <h2>Recomienda R/DEV y <span class="stroke">gana.</span></h2>
+      <p class="lead">Crea tu cuenta gratis, comparte tu enlace y cuando un negocio que recomendaste contrate su proyecto, tú eliges tu recompensa.</p>
+    </div>
+    <div class="ref-grid">
+      <div class="ref-card"><span class="label">Opción 1 · Cobrar</span><b class="js-reward">$15</b><p>Por cada referido que pague. Te llega por Binance, Zelle o bolívares a tasa BCV en un máximo de 48 horas.</p></div>
+      <div class="ref-card star"><span class="label">Opción 2 · Dejar en saldo</span><b class="js-credit">$45</b><p>El triple, en tu billetera R/DEV, para usarlo como abono en tu propia web, tienda o app.</p></div>
+    </div>
+    <div class="cta-row ref-cta">
+      <a class="btn magnet" href="cuenta.html">Crear mi cuenta gratis <span class="arr">→</span></a>
+      <a class="btn btn-ghost" href="cuenta.html?modo=entrar">Ya tengo cuenta</a>
+    </div>
+  </div>
+</section>
+
 <!-- FAQ -->
 <section id="preguntas">
   <div class="wrap faq-grid">
@@ -976,6 +1005,7 @@ input[type=range]{width:100%;height:28px;margin:0;background:transparent;accent-
       <details><summary>¿Puedo actualizar mis productos y precios yo mismo?</summary><p>Sí, si incluimos un panel de administración. Si prefieres no hacerlo tú, yo me encargo con el plan de mantenimiento.</p></details>
       <details><summary>¿Funciona en iPhone y Android?</summary><p>Sí. Funciona en cualquier teléfono y computadora, y se puede instalar en la pantalla de inicio como una app, sin pasar por las tiendas de aplicaciones.</p></details>
       <details><summary>¿Puedo ver trabajos que hayas hecho?</summary><p>Claro. Por privacidad no publico los nombres de mis clientes, pero te muestro los proyectos funcionando por WhatsApp.</p></details>
+      <details><summary>¿Cómo funciona el programa de referidos?</summary><p>Creas tu cuenta en «Mi cuenta», compartes tu enlace y, cuando alguien que llegó por ti paga su proyecto, eliges: cobrar la recompensa (Binance, Zelle o bolívares, en máximo 48 horas) o dejar el triple como saldo para tus propios proyectos con R/DEV.</p></details>
       <details><summary>¿Qué pasa si algo falla después de la entrega?</summary><p>Si algo falla por un error mío, lo arreglo sin costo. Los cambios nuevos o las mejoras los conversamos aparte.</p></details>
     </div>
   </div>
@@ -1001,7 +1031,7 @@ input[type=range]{width:100%;height:28px;margin:0;background:transparent;accent-
 <footer class="foot">
   <div class="wrap">
     <div class="foot-mark"><svg role="img" aria-label="R/DEV" viewBox="-2 -2 446 104" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="rdBandF"><rect x="-80" y="0" width="400" height="100"/></clipPath><mask id="rdBandFM0" maskUnits="userSpaceOnUse" x="-40" y="-40" width="200" height="180"><g fill="none" stroke-linejoin="miter" stroke-miterlimit="8" stroke="#fff" stroke-width="20"><path d="M10,10 V90 H54 L72,72 V28 L54,10 Z"/></g><g fill="none" stroke-linejoin="miter" stroke-miterlimit="8" stroke="#000" stroke-width="10"><path d="M10,10 V90 H54 L72,72 V28 L54,10 Z"/></g></mask><mask id="rdBandFM1" maskUnits="userSpaceOnUse" x="-40" y="-40" width="200" height="180"><g fill="none" stroke-linejoin="miter" stroke-miterlimit="8" stroke="#fff" stroke-width="20"><path d="M74,10 H10 V90 H74"/><path d="M10,50 H62"/></g><g fill="none" stroke-linejoin="miter" stroke-miterlimit="8" stroke="#000" stroke-width="10"><path d="M74,10 H10 V90 H74"/><path d="M10,50 H62"/></g></mask><mask id="rdBandFM2" maskUnits="userSpaceOnUse" x="-40" y="-40" width="200" height="180"><g fill="none" stroke-linejoin="miter" stroke-miterlimit="8" stroke="#fff" stroke-width="20"><path d="M10,-20 V30 L36,90 H48 L74,30 V-20"/></g><g fill="none" stroke-linejoin="miter" stroke-miterlimit="8" stroke="#000" stroke-width="10"><path d="M10,-20 V30 L36,90 H48 L74,30 V-20"/></g></mask></defs><g transform="translate(0,0)" clip-path="url(#rdBandF)"><g fill="none" stroke-linejoin="miter" stroke-miterlimit="8" stroke="currentColor" stroke-width="20"><path d="M10,100 V10 H58 L72,24 V42 L58,56 H10"/><path d="M44,56 L72,84 V120"/></g></g><g transform="translate(94,0)" clip-path="url(#rdBandF)"><g fill="none" stroke-linejoin="miter" stroke-miterlimit="8" stroke="var(--volt)" stroke-width="13"><path d="M-9.2,120 L55.2,-20"/></g></g><g transform="translate(162,0)" clip-path="url(#rdBandF)"><rect x="-40" y="-40" width="200" height="180" fill="currentColor" mask="url(#rdBandFM0)"/></g><g transform="translate(262,0)" clip-path="url(#rdBandF)"><rect x="-40" y="-40" width="200" height="180" fill="currentColor" mask="url(#rdBandFM1)"/></g><g transform="translate(356,0)" clip-path="url(#rdBandF)"><rect x="-40" y="-40" width="200" height="180" fill="currentColor" mask="url(#rdBandFM2)"/></g></svg></div>
-    <div class="foot-links"><a href="https://www.instagram.com/rdev.lab/" target="_blank" rel="noopener">Instagram @rdev.lab</a><a href="https://wa.me/584226843422" data-wa="quick" target="_blank" rel="noopener">WhatsApp</a><a href="#cotizar">Cotizar</a></div>
+    <div class="foot-links"><a href="https://www.instagram.com/rdev.lab/" target="_blank" rel="noopener">Instagram @rdev.lab</a><a href="https://wa.me/584226843422" data-wa="quick" target="_blank" rel="noopener">WhatsApp</a><a href="#cotizar">Cotizar</a><a href="#referidos">Gana recomendando</a><a href="cuenta.html?modo=entrar">Mi cuenta</a></div>
     <div class="foot-row"><span>R/DEV · Rafael Morín · Soluciones digitales para negocios · Venezuela</span><span>© <span id="year">2026</span> · Diseñado y creado por Rafael Morín</span></div>
   </div>
 </footer>
@@ -1821,6 +1851,23 @@ setDemoTab("comida");
 go(1); updateDock(); calcSave(); tickClock(); setInterval(tickClock, 30000);
 $("#year").textContent = new Date().getFullYear();
 initFX(); initBA(); initDecode(); initFine();
+})();
+</script>
+<script>
+/* Referidos: guarda el código que llega por enlace y muestra los montos vigentes */
+(() => {
+  const ref = (new URLSearchParams(location.search).get("ref") || "").toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 12);
+  if (ref) { try { localStorage.setItem("rdev_ref", ref); } catch (e) {} }
+  const SB = "https://omcjxtfyxzjhioljjvam.supabase.co/rest/v1/settings?select=reward_amount,credit_multiplier&id=eq.1";
+  const KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9tY2p4dGZ5eHpqaGlvbGpqdmFtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI3MTcxMDgsImV4cCI6MjEwODI5MzEwOH0.mDHwpYTZCHOF-sgKl64W1NYZ7NE2z1uGc_TNAf4EbzA";
+  const fmt = n => "$" + new Intl.NumberFormat("es-VE", { maximumFractionDigits: 2 }).format(n);
+  fetch(SB, { headers: { apikey: KEY, Authorization: "Bearer " + KEY } })
+    .then(r => r.ok ? r.json() : [])
+    .then(([s]) => {
+      if (!s) return;
+      document.querySelectorAll(".js-reward").forEach(el => el.textContent = fmt(+s.reward_amount));
+      document.querySelectorAll(".js-credit").forEach(el => el.textContent = fmt(s.reward_amount * s.credit_multiplier));
+    }).catch(() => {});
 })();
 </script>
 </body>
