@@ -87,7 +87,7 @@ p{margin:0}
 .light .btn-ghost{--bg:var(--paper-rule);--fg:var(--ink)}
 .light .btn-ghost::before{background:var(--paper)}
 .light .btn-ghost:hover,.light .btn-ghost:focus-visible{--bg:var(--ink)}
-.wa-ic{width:24px;height:24px;flex:none;display:grid;place-items:center;border-radius:50%;background:var(--live);color:#03160B}
+.dm-ic{width:24px;height:24px;flex:none;display:grid;place-items:center;border-radius:50%;background:var(--volt-ink);color:var(--volt)}
 .linkish{background:none;border:0;padding:6px 0;color:var(--mute);font-family:var(--mono);font-size:.66rem;letter-spacing:.04em;text-decoration:underline;text-underline-offset:3px;cursor:pointer;justify-self:start}
 
 /* ---------- chrome ---------- */
@@ -568,8 +568,8 @@ input[type=range]{width:100%;height:28px;margin:0;background:transparent;accent-
 .dock-text{display:grid;min-width:0;line-height:1.25}
 .dock-text b{font-size:.84rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .dock-text span{font-family:var(--mono);font-size:.54rem;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dock-wa{flex:none;width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--rule-2);color:var(--live)}
-.dock-wa:hover{border-color:var(--live)}
+.dock-dm{flex:none;width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--rule-2);color:var(--volt)}
+.dock-dm:hover{border-color:var(--volt)}
 @media(max-width:380px){.dock .btn-sm{padding:0 12px}.dock .btn-sm .arr{display:none}}
 .toast{position:fixed;left:50%;bottom:calc(86px + env(safe-area-inset-bottom,0px));z-index:56;max-width:calc(100% - 32px);padding:12px 16px;background:var(--chalk);color:var(--ink);font-size:.88rem;font-weight:600;transform:translate(-50%,16px);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s var(--ease)}
 .toast.show{opacity:1;transform:translate(-50%,0)}
@@ -605,8 +605,8 @@ input[type=range]{width:100%;height:28px;margin:0;background:transparent;accent-
     <a href="cuenta.html?modo=entrar">Mi cuenta <small>rdev/cuenta</small></a>
   </nav>
   <div class="menu-foot">
-    <span class="label">WhatsApp · +58 422-684-3422 · IG @rdev.lab</span>
-    <a class="btn" data-wa="quick" href="https://wa.me/584226843422" target="_blank" rel="noopener"><span class="wa-ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 11.6a8.5 8.5 0 0 1-12.6 7.4L3.5 20.5l1.5-4.3a8.5 8.5 0 1 1 15.5-4.6z"/><path d="M9 8.3c0 3.6 3 6.6 6.6 6.6" stroke-linecap="round"/></svg></span>Escríbeme</a>
+    <span class="label">Instagram · @rdev.lab</span>
+    <a class="btn" data-wa="quick" href="https://ig.me/m/rdev.lab" target="_blank" rel="noopener"><span class="dm-ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span>Escríbeme</a>
   </div>
 </div>
 
@@ -717,7 +717,7 @@ input[type=range]{width:100%;height:28px;margin:0;background:transparent;accent-
       <div class="feats d-feats" id="demoFeats"></div>
       <div class="d-cta">
         <button class="btn magnet" id="demoWant" type="button"><span id="demoWantT">Quiero un menú así</span> <span class="arr">→</span></button>
-        <span class="note">Se agrega a tu proyecto. Al final me lo envías por WhatsApp.</span>
+        <span class="note">Se agrega a tu proyecto. Al final me lo envías por Instagram.</span>
       </div>
     </div>
   </div>
@@ -729,7 +729,7 @@ input[type=range]{width:100%;height:28px;margin:0;background:transparent;accent-
     <div class="head">
       <span class="path">rdev/<b>servicios</b></span>
       <h2>Todo lo digital que tu negocio necesita.</h2>
-      <p class="lead">Toca “Agregar” en lo que te interese. Lo vas sumando a tu proyecto y al final me lo envías por WhatsApp con un solo toque.</p>
+      <p class="lead">Toca “Agregar” en lo que te interese. Lo vas sumando a tu proyecto y al final me lo envías por mensaje a Instagram.</p>
     </div>
     <div class="filters" id="filters" role="group" aria-label="Filtrar servicios"></div>
     <div id="catalog"></div>
@@ -797,7 +797,7 @@ input[type=range]{width:100%;height:28px;margin:0;background:transparent;accent-
       </article>
     </div>
     <div class="proj-cta">
-      <a class="btn btn-ghost magnet" id="seeWork" target="_blank" rel="noopener" href="https://wa.me/584226843422">Quiero ver tus proyectos <span class="arr">→</span></a>
+      <a class="btn btn-ghost magnet" id="seeWork" target="_blank" rel="noopener" href="https://ig.me/m/rdev.lab">Quiero ver tus proyectos <span class="arr">→</span></a>
     </div>
   </div>
 </section>
@@ -853,7 +853,7 @@ input[type=range]{width:100%;height:28px;margin:0;background:transparent;accent-
       <h2>De tu idea a tu app, en 4 pasos.</h2>
     </div>
     <ol class="steps">
-      <li class="step"><span class="num">01</span><h3>Me cuentas tu idea</h3><p>Por WhatsApp o con el cotizador de esta página. Sin tecnicismos.</p></li>
+      <li class="step"><span class="num">01</span><h3>Me cuentas tu idea</h3><p>Por mensaje a Instagram o con el cotizador de esta página. Sin tecnicismos.</p></li>
       <li class="step"><span class="num">02</span><h3>Te propongo</h3><p>Qué vamos a crear, cuánto cuesta y cuándo estará listo. Todo claro antes de empezar.</p></li>
       <li class="step"><span class="num">03</span><h3>Lo creamos juntos</h3><p>Te muestro avances y ajustamos hasta que quede como lo imaginas.</p></li>
       <li class="step"><span class="num">04</span><h3>Lo lanzamos</h3><p>Te enseño a usarlo y te acompaño después de la entrega.</p></li>
@@ -901,7 +901,7 @@ input[type=range]{width:100%;height:28px;margin:0;background:transparent;accent-
   <div class="wrap">
     <div class="head">
       <span class="path">rdev/<b>cotizar</b></span>
-      <h2>Arma tu proyecto y envíamelo por WhatsApp.</h2>
+      <h2>Arma tu proyecto y envíamelo por Instagram.</h2>
       <p class="lead">Toma menos de un minuto. Te respondo con una propuesta clara y sin compromiso.</p>
     </div>
     <div class="builder" id="builder">
@@ -951,8 +951,8 @@ input[type=range]{width:100%;height:28px;margin:0;background:transparent;accent-
             <div class="ticket" id="ticket"></div>
             <div class="b4-side">
               <h3>Todo listo.</h3>
-              <p class="hint">Al tocar el botón se abre WhatsApp con tu solicitud escrita. Solo tienes que enviarla.</p>
-              <a class="btn" id="sendWA" href="https://wa.me/584226843422" target="_blank" rel="noopener"><span class="wa-ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 11.6a8.5 8.5 0 0 1-12.6 7.4L3.5 20.5l1.5-4.3a8.5 8.5 0 1 1 15.5-4.6z"/><path d="M9 8.3c0 3.6 3 6.6 6.6 6.6" stroke-linecap="round"/></svg></span>Enviar por WhatsApp</a>
+              <p class="hint">Al tocar el botón copiamos tu solicitud y se abre el chat de @rdev.lab en Instagram. Solo tienes que pegarla y enviarla.</p>
+              <a class="btn" id="sendWA" href="https://ig.me/m/rdev.lab" target="_blank" rel="noopener"><span class="dm-ic"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span>Enviar por Instagram</a>
               <button class="btn btn-ghost btn-sm" id="copyMsg" type="button">Copiar resumen</button>
               <label class="sr" for="copyArea">Resumen del proyecto</label>
               <textarea class="input" id="copyArea" readonly hidden></textarea>
@@ -1004,7 +1004,7 @@ input[type=range]{width:100%;height:28px;margin:0;background:transparent;accent-
       <details><summary>¿Necesito comprar dominio y hosting?</summary><p>No es obligatorio para empezar. Te explico las opciones, incluso gratuitas, y si quieres tu propio .com te ayudo a configurarlo.</p></details>
       <details><summary>¿Puedo actualizar mis productos y precios yo mismo?</summary><p>Sí, si incluimos un panel de administración. Si prefieres no hacerlo tú, yo me encargo con el plan de mantenimiento.</p></details>
       <details><summary>¿Funciona en iPhone y Android?</summary><p>Sí. Funciona en cualquier teléfono y computadora, y se puede instalar en la pantalla de inicio como una app, sin pasar por las tiendas de aplicaciones.</p></details>
-      <details><summary>¿Puedo ver trabajos que hayas hecho?</summary><p>Claro. Por privacidad no publico los nombres de mis clientes, pero te muestro los proyectos funcionando por WhatsApp.</p></details>
+      <details><summary>¿Puedo ver trabajos que hayas hecho?</summary><p>Claro. Por privacidad no publico los nombres de mis clientes, pero te muestro los proyectos funcionando por mensaje privado en Instagram.</p></details>
       <details><summary>¿Cómo funciona el programa de referidos?</summary><p>Creas tu cuenta en «Mi cuenta», compartes tu enlace y, cuando alguien que llegó por ti paga su proyecto, eliges: cobrar la recompensa (Binance, Zelle o bolívares, en máximo 48 horas) o dejar el triple como saldo para tus propios proyectos con R/DEV.</p></details>
       <details><summary>¿Qué pasa si algo falla después de la entrega?</summary><p>Si algo falla por un error mío, lo arreglo sin costo. Los cambios nuevos o las mejoras los conversamos aparte.</p></details>
     </div>
@@ -1016,12 +1016,11 @@ input[type=range]{width:100%;height:28px;margin:0;background:transparent;accent-
   <div class="wrap">
     <span class="path">rdev/<b>contacto</b></span>
     <h2 class="big">¿Hablamos de tu <span class="stroke">proyecto?</span></h2>
-    <p class="lead">Escríbeme por WhatsApp. La asesoría inicial es gratis y sin compromiso.</p>
+    <p class="lead">Escríbeme por mensaje directo a @rdev.lab en Instagram. La asesoría inicial es gratis y sin compromiso.</p>
     <div class="cta-row">
       <a class="btn magnet" href="#cotizar">Arma tu proyecto <span class="arr">→</span></a>
-      <a class="btn btn-ghost magnet" data-wa="quick" target="_blank" rel="noopener" href="https://wa.me/584226843422">Escríbeme directo</a>
+      <a class="btn btn-ghost magnet" data-wa="quick" target="_blank" rel="noopener" href="https://ig.me/m/rdev.lab">Escríbeme directo</a>
     </div>
-    <div class="num-row"><span class="label">WhatsApp</span><strong>+58 422-684-3422</strong><button class="copy" type="button" data-copy="+584226843422">Copiar número</button></div>
     <div class="num-row ig-row"><span class="label">Instagram</span><a href="https://www.instagram.com/rdev.lab/" target="_blank" rel="noopener"><strong>@rdev.lab</strong></a></div>
   </div>
 </section>
@@ -1031,15 +1030,15 @@ input[type=range]{width:100%;height:28px;margin:0;background:transparent;accent-
 <footer class="foot">
   <div class="wrap">
     <div class="foot-mark"><svg role="img" aria-label="R/DEV" viewBox="-2 -2 446 104" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="rdBandF"><rect x="-80" y="0" width="400" height="100"/></clipPath><mask id="rdBandFM0" maskUnits="userSpaceOnUse" x="-40" y="-40" width="200" height="180"><g fill="none" stroke-linejoin="miter" stroke-miterlimit="8" stroke="#fff" stroke-width="20"><path d="M10,10 V90 H54 L72,72 V28 L54,10 Z"/></g><g fill="none" stroke-linejoin="miter" stroke-miterlimit="8" stroke="#000" stroke-width="10"><path d="M10,10 V90 H54 L72,72 V28 L54,10 Z"/></g></mask><mask id="rdBandFM1" maskUnits="userSpaceOnUse" x="-40" y="-40" width="200" height="180"><g fill="none" stroke-linejoin="miter" stroke-miterlimit="8" stroke="#fff" stroke-width="20"><path d="M74,10 H10 V90 H74"/><path d="M10,50 H62"/></g><g fill="none" stroke-linejoin="miter" stroke-miterlimit="8" stroke="#000" stroke-width="10"><path d="M74,10 H10 V90 H74"/><path d="M10,50 H62"/></g></mask><mask id="rdBandFM2" maskUnits="userSpaceOnUse" x="-40" y="-40" width="200" height="180"><g fill="none" stroke-linejoin="miter" stroke-miterlimit="8" stroke="#fff" stroke-width="20"><path d="M10,-20 V30 L36,90 H48 L74,30 V-20"/></g><g fill="none" stroke-linejoin="miter" stroke-miterlimit="8" stroke="#000" stroke-width="10"><path d="M10,-20 V30 L36,90 H48 L74,30 V-20"/></g></mask></defs><g transform="translate(0,0)" clip-path="url(#rdBandF)"><g fill="none" stroke-linejoin="miter" stroke-miterlimit="8" stroke="currentColor" stroke-width="20"><path d="M10,100 V10 H58 L72,24 V42 L58,56 H10"/><path d="M44,56 L72,84 V120"/></g></g><g transform="translate(94,0)" clip-path="url(#rdBandF)"><g fill="none" stroke-linejoin="miter" stroke-miterlimit="8" stroke="var(--volt)" stroke-width="13"><path d="M-9.2,120 L55.2,-20"/></g></g><g transform="translate(162,0)" clip-path="url(#rdBandF)"><rect x="-40" y="-40" width="200" height="180" fill="currentColor" mask="url(#rdBandFM0)"/></g><g transform="translate(262,0)" clip-path="url(#rdBandF)"><rect x="-40" y="-40" width="200" height="180" fill="currentColor" mask="url(#rdBandFM1)"/></g><g transform="translate(356,0)" clip-path="url(#rdBandF)"><rect x="-40" y="-40" width="200" height="180" fill="currentColor" mask="url(#rdBandFM2)"/></g></svg></div>
-    <div class="foot-links"><a href="https://www.instagram.com/rdev.lab/" target="_blank" rel="noopener">Instagram @rdev.lab</a><a href="https://wa.me/584226843422" data-wa="quick" target="_blank" rel="noopener">WhatsApp</a><a href="#cotizar">Cotizar</a><a href="#referidos">Gana recomendando</a><a href="cuenta.html?modo=entrar">Mi cuenta</a></div>
+    <div class="foot-links"><a href="https://www.instagram.com/rdev.lab/" target="_blank" rel="noopener">Instagram @rdev.lab</a><a href="https://ig.me/m/rdev.lab" data-wa="quick" target="_blank" rel="noopener">Mensaje directo</a><a href="#cotizar">Cotizar</a><a href="#referidos">Gana recomendando</a><a href="cuenta.html?modo=entrar">Mi cuenta</a></div>
     <div class="foot-row"><span>R/DEV · Rafael Morín · Soluciones digitales para negocios · Venezuela</span><span>© <span id="year">2026</span> · Diseñado y creado por Rafael Morín</span></div>
   </div>
 </footer>
 
 <div class="dock" id="dock">
-  <a class="dock-info" href="#cotizar"><span class="dock-count" id="dockCount">0</span><span class="dock-text"><b id="dockTitle">Arma tu proyecto</b><span id="dockSub">Elige servicios y envíamelos por WhatsApp</span></span></a>
+  <a class="dock-info" href="#cotizar"><span class="dock-count" id="dockCount">0</span><span class="dock-text"><b id="dockTitle">Arma tu proyecto</b><span id="dockSub">Elige servicios y envíamelos por Instagram</span></span></a>
   <a class="btn btn-sm" href="#cotizar">Continuar <span class="arr">→</span></a>
-  <a class="dock-wa" data-wa="quick" href="https://wa.me/584226843422" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 11.6a8.5 8.5 0 0 1-12.6 7.4L3.5 20.5l1.5-4.3a8.5 8.5 0 1 1 15.5-4.6z"/><path d="M9 8.3c0 3.6 3 6.6 6.6 6.6" stroke-linecap="round"/></svg></a>
+  <a class="dock-dm" data-wa="quick" href="https://ig.me/m/rdev.lab" target="_blank" rel="noopener" aria-label="Escribir por Instagram"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -1048,7 +1047,7 @@ input[type=range]{width:100%;height:28px;margin:0;background:transparent;accent-
 "use strict";
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
-const WA = "584226843422";
+const DM = "https://ig.me/m/rdev.lab";
 const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const FINE = matchMedia("(hover: hover) and (pointer: fine)").matches;
 const store = {
@@ -1059,7 +1058,8 @@ const nf2 = new Intl.NumberFormat("es-VE", { minimumFractionDigits: 2, maximumFr
 const nf1 = new Intl.NumberFormat("es-VE", { maximumFractionDigits: 1 });
 const usd = n => "$" + nf2.format(n);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const waLink = t => "https://wa.me/" + WA + "?text=" + encodeURIComponent(t);
+// Instagram no permite precargar el texto: se guarda en data-msg y se copia al tocar el enlace
+const setDM = (a, t) => { a.href = DM; a.dataset.msg = t; };
 
 /* ---------------- data ---------------- */
 const ICON = {
@@ -1266,6 +1266,10 @@ document.addEventListener("click", e => {
     if (bd.dataset.jump) { go(1); $("#builder").scrollIntoView({ behavior: RM ? "auto" : "smooth", block: "start" }); }
     return;
   }
+  const dm = e.target.closest("a[data-msg]");
+  if (dm) {
+    try { navigator.clipboard.writeText(dm.dataset.msg).then(() => toast("Mensaje copiado: pégalo en el chat de Instagram"), () => {}); } catch (_) {}
+  }
   const cp = e.target.closest("[data-copy]");
   if (cp) {
     const v = cp.dataset.copy, label = cp.textContent;
@@ -1355,8 +1359,8 @@ function renderTicket() {
     ${feats.length ? `<div class="t-sec"><h5>Detalles</h5><ul class="t-list">${feats.map(f => `<li><span><b>${esc(f.label)}:</b> ${f.items.map(esc).join(", ")}</span></li>`).join("")}</ul></div>` : ""}
     ${kv.length ? `<div class="t-sec"><h5>Tu negocio</h5><dl class="t-kv">${kv.map(([k, v]) => `<dt>${k}</dt><dd>${esc(v.trim())}</dd>`).join("")}</dl></div>` : ""}
     ${b.idea.trim() ? `<div class="t-sec"><h5>Tu idea</h5><p>${esc(b.idea.trim())}</p></div>` : ""}
-    <div class="t-sec level"><div class="level-top"><h5 style="margin:0">Nivel estimado</h5><b>${lv.name}</b></div><div class="level-bar"><i style="--w:${lv.w.toFixed(0)}%"></i></div><div class="level-scale"><span>Esencial</span><span>Intermedio</span><span>Avanzado</span></div><p class="t-empty">Plan sugerido: ${lv.plan}. La cotización final te la doy yo por WhatsApp.</p></div>`;
-  $("#sendWA").href = waLink(buildMsg());
+    <div class="t-sec level"><div class="level-top"><h5 style="margin:0">Nivel estimado</h5><b>${lv.name}</b></div><div class="level-bar"><i style="--w:${lv.w.toFixed(0)}%"></i></div><div class="level-scale"><span>Esencial</span><span>Intermedio</span><span>Avanzado</span></div><p class="t-empty">Plan sugerido: ${lv.plan}. La cotización final te la doy yo por mensaje.</p></div>`;
+  setDM($("#sendWA"), buildMsg());
 }
 function buildMsg() {
   const b = S.biz, lv = level(), L = [];
@@ -1407,9 +1411,9 @@ function updateDock() {
   const n = S.services.length;
   $("#dockCount").textContent = n;
   $("#dockTitle").textContent = n ? (n === 1 ? "1 servicio en tu proyecto" : n + " servicios en tu proyecto") : "Arma tu proyecto";
-  $("#dockSub").textContent = n ? S.services.map(id => SVC[id].name).join(" · ") : "Elige servicios y envíamelos por WhatsApp";
-  $$("[data-wa='quick']").forEach(a => { a.href = waLink(quickMsg()); });
-  $("#seeWork").href = waLink("Hola Rafael 👋 Me gustaría ver algunos de los proyectos que has hecho.");
+  $("#dockSub").textContent = n ? S.services.map(id => SVC[id].name).join(" · ") : "Elige servicios y envíamelos por Instagram";
+  $$("[data-wa='quick']").forEach(a => setDM(a, quickMsg()));
+  setDM($("#seeWork"), "Hola Rafael 👋 Me gustaría ver algunos de los proyectos que has hecho.");
   updateCount();
 }
 function bumpDock() { const d = $("#dock"); d.classList.remove("bump"); void d.offsetWidth; d.classList.add("bump"); }

@@ -751,7 +751,7 @@ async function boot() {
   if (recovering && session) { show("authView"); authMode("reset"); return; }
   if (!session) { me = null; $("#who").textContent = ""; show("authView"); authMode(store.get("rdev_ref") ? "signup" : (qp.get("modo") === "entrar" ? "login" : "signup")); return; }
   const { data: prof, error } = await sb.from("profiles").select("*").eq("id", session.user.id).maybeSingle();
-  if (error || !prof) { show("authView"); authMode("login"); showErr($("#liErr"), error || "No encontramos tu perfil. Escríbenos por WhatsApp."); return; }
+  if (error || !prof) { show("authView"); authMode("login"); showErr($("#liErr"), error || "No encontramos tu perfil. Escríbenos por Instagram a @rdev.lab."); return; }
   me = prof;
   $("#who").textContent = me.email;
   if (me.role === "admin") { show("adminView"); await loadAdmin(); }
