@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lic. Adriana Leal | Psicóloga Online · Método Vortex</title>
+<meta name="description" content="Psicóloga online para personas con alta responsabilidad. Claridad mental, bienestar emocional y el Método Vortex. Agenda tu consulta.">
+<meta property="og:title" content="Lic. Adriana Leal · Psicóloga Online">
+<meta property="og:description" content="Claridad mental y bienestar emocional para personas con alta responsabilidad. Creadora del Método Vortex.">
+<meta property="og:image" content="img/adriana.jpg">
+<meta name="theme-color" content="#2a1257">
+<meta name="robots" content="noindex">
+<link rel="icon" href="img/logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --plum:#1d0b3f; --plum2:#2a1257; --purple:#5a26b0; --violet:#7b45d6; --lav:#f4effb; --lav2:#e9e0f7;
+  --gold:#f2b705; --gold2:#d9a21b; --goldsoft:#f7d774; --ink:#231a33; --muted:#665c78; --white:#fff;
+  --r:22px; --shadow:0 24px 60px -24px rgba(42,18,87,.45);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--lav);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1140px,100% - 40px);margin-inline:auto}
+.serif{font-family:"Cormorant Garamond",Georgia,serif}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;line-height:1.08;letter-spacing:-.01em}
+h2{font-size:clamp(2.1rem,4.4vw,3.2rem)}
+h2 em,h1 em{font-style:italic;color:var(--gold)}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:.78rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--purple)}
+.eyebrow::before{content:"";width:26px;height:2px;background:var(--gold)}
+.dark .eyebrow{color:var(--goldsoft)}
+.lead{font-size:1.08rem;color:var(--muted);max-width:620px}
+.dark .lead{color:#d9cdef}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 26px;border-radius:999px;font-weight:600;font-size:.98rem;border:0;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s;font-family:inherit}
+.btn.gold{background:linear-gradient(135deg,var(--goldsoft),var(--gold) 55%,var(--gold2));color:#2a1257;box-shadow:0 12px 30px -10px rgba(242,183,5,.7)}
+.btn.gold:hover{transform:translateY(-2px);box-shadow:0 18px 38px -12px rgba(242,183,5,.85)}
+.btn.ghost{border:1.5px solid rgba(255,255,255,.35);color:#fff}
+.btn.ghost:hover{background:rgba(255,255,255,.08)}
+.btn.purple{background:var(--purple);color:#fff}
+.btn.purple:hover{background:var(--violet)}
+.btn.sm{padding:10px 18px;font-size:.88rem}
+.btn svg{width:18px;height:18px}
+section{padding:96px 0}
+.dark{background:radial-gradient(1200px 600px at 85% -10%,#4b1f9a 0,transparent 60%),radial-gradient(900px 500px at -10% 110%,#3a1680 0,transparent 55%),var(--plum);color:#fff}
+
+/* nav */
+.nav{position:fixed;inset:0 0 auto;z-index:50;transition:background .3s,box-shadow .3s,padding .3s;padding:18px 0}
+.nav.solid{background:rgba(29,11,63,.92);backdrop-filter:blur(12px);box-shadow:0 10px 30px -15px rgba(0,0,0,.5);padding:10px 0}
+.nav-in{display:flex;align-items:center;gap:22px}
+.brand{display:flex;align-items:center;gap:12px;color:#fff;margin-right:auto}
+.brand img{width:46px;height:46px;border-radius:50%;background:#fff;box-shadow:0 0 0 2px var(--gold)}
+.brand b{display:block;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.35rem;font-weight:600;line-height:1}
+.brand small{display:block;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--goldsoft);margin-top:3px}
+.links{display:flex;align-items:center;gap:26px;color:#e7dcfa;font-size:.92rem;font-weight:500}
+.links a:not(.btn):hover{color:var(--goldsoft)}
+.burger{display:none;background:none;border:0;width:42px;height:42px;cursor:pointer;position:relative}
+.burger span{position:absolute;left:10px;right:10px;height:2px;background:#fff;transition:.3s}
+.burger span:first-child{top:16px}.burger span:last-child{top:25px}
+.burger[aria-expanded=true] span:first-child{transform:translateY(4.5px) rotate(45deg)}
+.burger[aria-expanded=true] span:last-child{transform:translateY(-4.5px) rotate(-45deg)}
+
+/* hero */
+.hero{min-height:100vh;display:flex;align-items:center;padding:130px 0 80px;position:relative;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+.hero h1{font-size:clamp(2.6rem,5.6vw,4.4rem);margin:18px 0 22px}
+.hero .actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
+.chip{display:inline-flex;align-items:center;gap:8px;font-size:.84rem;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:#eadff9}
+.chip i{width:7px;height:7px;border-radius:50%;background:var(--gold);display:block}
+.portrait{position:relative;justify-self:center;width:min(420px,100%)}
+.portrait .frame{position:relative;border-radius:220px 220px 28px 28px;overflow:hidden;aspect-ratio:372/425;box-shadow:var(--shadow);border:3px solid var(--gold)}
+.portrait .frame img{width:100%;height:100%;object-fit:cover}
+.portrait::before{content:"";position:absolute;inset:-18px -18px 30px 30px;border-radius:230px 230px 34px 34px;border:1.5px solid rgba(242,183,5,.45);z-index:-1}
+.orbit{position:absolute;width:520px;height:520px;right:-120px;top:50%;transform:translateY(-50%);border-radius:50%;border:1px dashed rgba(242,183,5,.18);animation:spin 60s linear infinite;pointer-events:none}
+.orbit::after{content:"";position:absolute;top:-6px;left:50%;width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 18px var(--gold)}
+@keyframes spin{to{transform:translateY(-50%) rotate(360deg)}}
+.badge{position:absolute;left:-30px;bottom:40px;background:#fff;color:var(--ink);border-radius:18px;padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow)}
+.badge img{width:44px;height:44px;border-radius:50%}
+.badge b{display:block;font-size:.95rem}
+.badge span{font-size:.78rem;color:var(--muted)}
+
+/* pains */
+.pains{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px}
+.pain{background:#fff;border-radius:var(--r);padding:32px 28px;box-shadow:0 18px 40px -28px rgba(42,18,87,.4);position:relative;overflow:hidden}
+.pain::before{content:"“";position:absolute;right:18px;top:-18px;font-family:"Cormorant Garamond",serif;font-size:8rem;color:var(--lav2);line-height:1}
+.pain h3{font-size:1.55rem;color:var(--plum2);margin-bottom:10px;position:relative}
+.pain h3 em{color:var(--purple)}
+.pain p{color:var(--muted);position:relative}
+.note-center{text-align:center;margin-top:44px;font-family:"Cormorant Garamond",serif;font-size:1.6rem;font-style:italic;color:var(--plum2)}
+.note-center b{color:var(--purple);font-weight:600}
+
+/* services */
+.head{display:flex;justify-content:space-between;align-items:end;gap:30px;flex-wrap:wrap}
+.services{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:50px}
+.svc{display:flex;gap:22px;padding:30px;border-radius:var(--r);background:#fff;border:1px solid var(--lav2);transition:transform .25s,box-shadow .25s,border-color .25s}
+.svc:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:transparent}
+.svc .ic{flex:none;width:56px;height:56px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,var(--purple),var(--plum2));color:var(--gold)}
+.svc .ic svg{width:28px;height:28px}
+.svc h3{font-size:1.5rem;color:var(--plum2);margin-bottom:6px}
+.svc p{color:var(--muted);font-size:.96rem}
+.svc .tag{display:inline-block;margin-top:12px;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--purple);background:var(--lav);padding:5px 10px;border-radius:999px}
+.svc.feat{background:linear-gradient(140deg,var(--plum2),var(--purple));color:#fff;border:0}
+.svc.feat h3{color:#fff}.svc.feat p{color:#e1d4f6}
+.svc.feat .ic{background:var(--gold);color:var(--plum2)}
+.svc.feat .tag{background:rgba(242,183,5,.18);color:var(--goldsoft)}
+
+/* vortex */
+.vortex-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:64px;align-items:center}
+.vimg{position:relative;border-radius:28px;overflow:hidden;box-shadow:0 30px 80px -30px rgba(0,0,0,.8);border:1px solid rgba(242,183,5,.35)}
+.vimg img{width:100%;aspect-ratio:429/327;object-fit:cover}
+.vimg figcaption{position:absolute;left:18px;bottom:16px;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--goldsoft)}
+.steps{margin-top:34px;display:grid;gap:16px}
+.step{display:flex;gap:18px;padding:20px 22px;border-radius:18px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
+.step .n{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-family:"Cormorant Garamond",serif;font-size:1.4rem;font-weight:700;color:var(--plum2);background:var(--gold)}
+.step h3{font-size:1.35rem;margin-bottom:2px}
+.step p{color:#d4c6ee;font-size:.95rem}
+.rekor{margin-top:26px;display:flex;align-items:center;gap:16px;padding:16px 18px;border-radius:18px;background:linear-gradient(90deg,rgba(242,183,5,.16),rgba(242,183,5,.02));border:1px solid rgba(242,183,5,.35)}
+.rekor img{width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--gold)}
+.rekor b{display:block;color:var(--goldsoft);font-family:"Cormorant Garamond",serif;font-size:1.3rem}
+.rekor span{font-size:.88rem;color:#d9cdef}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:64px;align-items:center}
+.about-img{position:relative}
+.about-img img{border-radius:28px;width:100%;aspect-ratio:390/625;object-fit:cover;max-height:560px;box-shadow:var(--shadow)}
+.about-img .sig{position:absolute;right:-20px;bottom:30px;background:var(--plum2);color:#fff;padding:16px 22px;border-radius:18px;box-shadow:var(--shadow)}
+.about-img .sig b{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.5rem;display:block;line-height:1;color:var(--goldsoft)}
+.about-img .sig span{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase}
+.about p{color:var(--muted);margin-top:16px}
+.about p strong{color:var(--plum2)}
+.vals{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
+.val{background:#fff;border-radius:16px;padding:18px;text-align:center;border:1px solid var(--lav2)}
+.val b{display:block;font-family:"Cormorant Garamond",serif;font-size:2rem;color:var(--purple);line-height:1}
+.val span{font-size:.84rem;color:var(--muted)}
+
+/* how */
+.how{background:#fff}
+.how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px;counter-reset:h}
+.hcard{padding:34px 28px;border-radius:var(--r);background:var(--lav);position:relative}
+.hcard::before{counter-increment:h;content:"0" counter(h);font-family:"Cormorant Garamond",serif;font-size:3.4rem;font-weight:700;color:var(--gold);line-height:1;display:block;margin-bottom:14px}
+.hcard h3{font-size:1.5rem;color:var(--plum2);margin-bottom:8px}
+.hcard p{color:var(--muted);font-size:.96rem}
+
+/* testimonials */
+.tests{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px}
+.test{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:var(--r);padding:30px}
+.stars{color:var(--gold);letter-spacing:3px;font-size:1rem}
+.test p{font-family:"Cormorant Garamond",serif;font-size:1.32rem;font-style:italic;line-height:1.4;margin:14px 0 20px;color:#f1eafc}
+.who{display:flex;align-items:center;gap:12px;font-size:.9rem}
+.who i{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:700;background:var(--gold);color:var(--plum2)}
+.who span{display:block;color:#bfaedf;font-size:.8rem}
+.ph{margin-top:22px;text-align:center;font-size:.8rem;color:#a996cc}
+
+/* faq */
+.faq-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:60px}
+details{background:#fff;border-radius:18px;padding:20px 24px;border:1px solid var(--lav2);margin-bottom:12px}
+summary{cursor:pointer;font-weight:600;color:var(--plum2);list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:1.4rem;line-height:1;color:var(--purple);transition:transform .25s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{margin-top:10px;color:var(--muted)}
+
+/* booking */
+.book-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+.form{background:#fff;color:var(--ink);border-radius:28px;padding:36px;box-shadow:0 40px 90px -40px rgba(0,0,0,.7)}
+.form h3{font-size:1.9rem;color:var(--plum2)}
+.form .sub{color:var(--muted);font-size:.92rem;margin:4px 0 22px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{display:block;font-size:.82rem;font-weight:600;color:var(--plum2);margin-bottom:14px}
+input,select,textarea{display:block;width:100%;margin-top:6px;padding:13px 14px;border-radius:12px;border:1.5px solid var(--lav2);background:var(--lav);font:inherit;font-size:.95rem;color:var(--ink);transition:border-color .2s,background .2s}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--purple);background:#fff}
+textarea{min-height:96px;resize:vertical}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.pills input{display:none}
+.pills label{margin:0}
+.pills span{display:inline-block;padding:9px 14px;border-radius:999px;border:1.5px solid var(--lav2);font-size:.85rem;font-weight:500;cursor:pointer;color:var(--muted);transition:.2s}
+.pills input:checked+span{background:var(--purple);border-color:var(--purple);color:#fff}
+.form .btn{width:100%;margin-top:8px}
+.priv{display:flex;gap:8px;align-items:flex-start;font-size:.78rem;color:var(--muted);margin-top:14px}
+.priv svg{flex:none;width:16px;height:16px;color:var(--purple);margin-top:2px}
+.bullets{margin-top:28px;display:grid;gap:14px}
+.bullets>div{display:flex;gap:14px;align-items:flex-start}
+.bullets svg{flex:none;width:24px;height:24px;color:var(--gold)}
+.bullets b{display:block}
+.bullets span{color:#cdbfe8;font-size:.92rem}
+
+/* footer */
+footer{background:#140729;color:#bba9dc;padding:56px 0 34px;font-size:.9rem}
+.f-in{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:center}
+.f-links{display:flex;gap:20px;flex-wrap:wrap}
+.f-links a:hover{color:var(--goldsoft)}
+.crisis{margin-top:30px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:.8rem;color:#8f7db3}
+.crisis a{color:var(--goldsoft)}
+
+.fab{position:fixed;right:18px;bottom:18px;z-index:60;width:60px;height:60px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--goldsoft),var(--gold));color:var(--plum2);box-shadow:0 14px 30px -8px rgba(242,183,5,.7);transition:transform .2s}
+.fab:hover{transform:scale(1.07)}
+.fab svg{width:28px;height:28px}
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,140%);background:var(--plum2);color:#fff;padding:14px 20px;border-radius:14px;box-shadow:var(--shadow);z-index:80;font-size:.92rem;max-width:calc(100% - 40px);transition:transform .35s;border:1px solid rgba(242,183,5,.4);visibility:hidden}
+.toast.on{transform:translate(-50%,0);visibility:visible}
+
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s,transform .8s}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:960px){
+  section{padding:76px 0}
+  .hero-grid,.vortex-grid,.about-grid,.faq-grid,.book-grid{grid-template-columns:1fr;gap:44px}
+  .hero{padding-top:120px}
+  .portrait{width:min(250px,64%);order:-1}
+  .hero h1{margin-top:12px}
+  .badge{left:50%;transform:translateX(-50%);bottom:-22px;white-space:nowrap;width:max-content;padding:10px 14px}
+  .badge img{width:34px;height:34px}
+  .portrait{margin-bottom:10px}
+  .pains,.how-grid,.tests{grid-template-columns:1fr}
+  .services{grid-template-columns:1fr}
+  .about-img{max-width:420px}
+  .about-img .sig{right:-8px}
+  .links{position:fixed;inset:68px 14px auto;flex-direction:column;align-items:stretch;gap:4px;padding:16px;border-radius:20px;background:rgba(29,11,63,.98);box-shadow:var(--shadow);transform:translateY(-12px);opacity:0;pointer-events:none;transition:.25s}
+  .links.open{transform:none;opacity:1;pointer-events:auto}
+  .links a:not(.btn){padding:12px 10px;border-bottom:1px solid rgba(255,255,255,.06)}
+  .links .btn{margin-top:10px}
+  .burger{display:block}
+  .orbit{display:none}
+}
+@media (max-width:520px){
+  .wrap{width:calc(100% - 32px)}
+  .row{grid-template-columns:1fr}
+  .form{padding:26px 20px}
+  .vals{grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .val{padding:14px 6px}
+  .svc{flex-direction:column;gap:14px;padding:26px 22px}
+  .brand small{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="brand" aria-label="Lic. Adriana Leal, inicio">
+      <img src="img/logo.png" alt="Logo Adriana Leal">
+      <span><b>Lic. Adriana Leal</b><small>Psicóloga Online</small></span>
+    </a>
+    <nav class="links" id="links">
+      <a href="#para-ti">¿Es para ti?</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#vortex">Método Vortex</a>
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#preguntas">Preguntas</a>
+      <a href="#agenda" class="btn gold sm">Agendar consulta</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menú" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="hero dark" id="top">
+  <div class="orbit"></div>
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <span class="eyebrow">Psicóloga online · Creadora del Método Vortex</span>
+      <h1>Sostienes a todos.<br>¿Quién te sostiene <em>a ti</em>?</h1>
+      <p class="lead">Acompaño a personas con alta responsabilidad a recuperar la <strong style="color:#fff">claridad mental</strong>, descansar sin culpa y volver a sentirse en paz consigo mismas. Desde donde estés, en sesiones 100% online.</p>
+      <div class="actions">
+        <a href="#agenda" class="btn gold">Agenda tu consulta
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a href="#vortex" class="btn ghost">Conoce el Método Vortex</a>
+      </div>
+      <div class="chips">
+        <span class="chip"><i></i>Sesiones por videollamada</span>
+        <span class="chip"><i></i>Confidencial y seguro</span>
+        <span class="chip"><i></i>Atención en español</span>
+      </div>
+    </div>
+    <div class="portrait reveal">
+      <div class="frame"><img src="img/adriana.jpg" alt="Lic. Adriana Leal, psicóloga"></div>
+      <div class="badge"><img src="img/logo.png" alt=""><div><b>Método Vortex</b><span>Claridad · Bienestar</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="para-ti">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center">
+      <span class="eyebrow">¿Te identificas?</span>
+      <h2 style="margin-top:14px;color:var(--plum2)">Ser la persona fuerte <em style="color:var(--purple)">también cansa</em></h2>
+    </div>
+    <div class="pains">
+      <article class="pain reveal">
+        <h3>No te cuesta descansar… <em>te cuesta parar</em></h3>
+        <p>Cuando nadie te necesita, no sabes qué hacer contigo. Te acostumbraste a sentir que vales por todo lo que haces por los demás.</p>
+      </article>
+      <article class="pain reveal">
+        <h3>Te cansa ser <em>quien todos conocen</em></h3>
+        <p>Seguir siendo la persona que resuelve, que no falla y que siempre puede, incluso en los días en que tú ya no te reconoces.</p>
+      </article>
+      <article class="pain reveal">
+        <h3>Organizarte es <em>soltar peso</em></h3>
+        <p>No se trata de hacer más, sino de dejar de cargar con expectativas que no son tuyas y ordenar tu mente para poder respirar.</p>
+      </article>
+    </div>
+    <p class="note-center reveal">Si leíste esto y algo se movió dentro de ti, <b>este espacio es para ti.</b></p>
+  </div>
+</section>
+
+<section class="how" id="servicios" style="background:#fff">
+  <div class="wrap">
+    <div class="head reveal">
+      <div>
+        <span class="eyebrow">Servicios</span>
+        <h2 style="margin-top:14px;color:var(--plum2)">Cómo puedo <em style="color:var(--purple)">acompañarte</em></h2>
+      </div>
+      <p class="lead">Un proceso cercano, profesional y a tu ritmo, diseñado para personas que cargan mucho y necesitan resultados reales.</p>
+    </div>
+    <div class="services">
+      <article class="svc reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <div><h3>Terapia individual online</h3><p>Sesiones privadas por videollamada para trabajar ansiedad, estrés, agotamiento emocional y los temas que hoy te pesan.</p><span class="tag">Adultos · 100% online</span></div>
+      </article>
+      <article class="svc feat reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v6M4 6l5 7.5M20 6l-5 7.5M12 21l-8-15M12 21l8-15"/></svg></div>
+        <div><h3>Método Vortex</h3><p>Mi programa propio para salir del modo reactivo, recuperar el control de tu mente y volver a decidir desde la calma.</p><span class="tag">Programa exclusivo</span></div>
+      </article>
+      <article class="svc reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg></div>
+        <div><h3>Claridad mental y organización</h3><p>Herramientas para ordenar pensamientos, prioridades y rutinas, y dejar de vivir en piloto automático.</p><span class="tag">Enfoque práctico</span></div>
+      </article>
+      <article class="svc reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></div>
+        <div><h3>Descanso y bienestar emocional</h3><p>Aprende a descansar sin culpa, poner límites sanos y cuidar de ti con la misma entrega con la que cuidas a los demás.</p><span class="tag">Autocuidado</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="dark" id="vortex">
+  <div class="wrap vortex-grid">
+    <figure class="vimg reveal">
+      <img src="img/vortex-simbolo.jpg" alt="Símbolo del Método Vortex">
+      <figcaption>El Vortex · tres direcciones, un centro</figcaption>
+    </figure>
+    <div class="reveal">
+      <span class="eyebrow">Método Vortex</span>
+      <h2 style="margin-top:14px">Vuelve a tu <em>centro</em> y avanza con claridad</h2>
+      <p class="lead" style="margin-top:16px">Un método creado por la Lic. Adriana Leal para personas que lo sostienen todo. Del caos mental a una mente en calma, enfocada y en movimiento.</p>
+      <div class="steps">
+        <div class="step"><span class="n">1</span><div><h3>Detenerte</h3><p>Identificamos lo que te está drenando y desde dónde estás reaccionando.</p></div></div>
+        <div class="step"><span class="n">2</span><div><h3>Calibrar</h3><p>Desactivamos la mente reactiva y recuperas el equilibrio entre cuerpo, mente y emociones.</p></div></div>
+        <div class="step"><span class="n">3</span><div><h3>Avanzar</h3><p>Tomas decisiones desde tu centro, con energía, propósito y límites claros.</p></div></div>
+      </div>
+      <div class="rekor">
+        <img src="img/caja-rekor.jpg" alt="Caja Vortex Rekor 888">
+        <div><b>Vortex Rekor 888</b><span>Programa de calibración y desarticulación de la mente reactiva. Pregunta por disponibilidad.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sobre-mi">
+  <div class="wrap about-grid">
+    <div class="about-img reveal">
+      <img src="img/organizacion.jpg" alt="Sesión de organización y claridad mental">
+      <div class="sig"><b>Adriana Leal</b><span>Licenciada en Psicología</span></div>
+    </div>
+    <div class="about reveal">
+      <span class="eyebrow">Sobre mí</span>
+      <h2 style="margin-top:14px;color:var(--plum2)">Hola, soy <em style="color:var(--purple)">Adriana</em></h2>
+      <p>Soy psicóloga y acompaño de forma online a <strong>personas con alta responsabilidad</strong>: profesionales, madres, emprendedores y líderes que sostienen a muchos y se olvidan de sí mismos.</p>
+      <p>Después de ver el mismo patrón una y otra vez, creé el <strong>Método Vortex</strong>: un camino claro para salir del agotamiento, ordenar la mente y recuperar el bienestar emocional sin dejar de ser quien eres.</p>
+      <p>Mi consulta es un espacio seguro, sin juicios, donde por fin puedes soltar.</p>
+      <div class="vals">
+        <div class="val"><b>1.2K+</b><span>Comunidad en Instagram</span></div>
+        <div class="val"><b>100%</b><span>Online</span></div>
+        <div class="val"><b>1:1</b><span>Atención personal</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center">
+      <span class="eyebrow">Atención online</span>
+      <h2 style="margin-top:14px;color:var(--plum2)">Empezar es <em style="color:var(--purple)">más fácil</em> de lo que crees</h2>
+    </div>
+    <div class="how-grid">
+      <div class="hcard reveal"><h3>Escríbeme</h3><p>Completa el formulario o envíame un mensaje contándome brevemente qué te trae.</p></div>
+      <div class="hcard reveal"><h3>Agendamos</h3><p>Te respondo con los horarios disponibles y elegimos el que mejor se adapte a ti.</p></div>
+      <div class="hcard reveal"><h3>Tu sesión</h3><p>Nos conectamos por videollamada desde la comodidad y privacidad de tu espacio.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="dark">
+  <div class="wrap">
+    <div class="reveal" style="text-align:center">
+      <span class="eyebrow">Testimonios</span>
+      <h2 style="margin-top:14px">Lo que dicen <em>mis pacientes</em></h2>
+    </div>
+    <div class="tests">
+      <div class="test reveal"><div class="stars">★★★★★</div><p>“Llegué agotada y sintiendo que tenía que poder con todo. Hoy sé poner límites y por fin descanso sin culpa.”</p><div class="who"><i>M</i><div><b>María G.</b><span>Paciente online</span></div></div></div>
+      <div class="test reveal"><div class="stars">★★★★★</div><p>“El Método Vortex me dio claridad. Dejé de reaccionar a todo y empecé a decidir con calma.”</p><div class="who"><i>C</i><div><b>Carlos R.</b><span>Emprendedor</span></div></div></div>
+      <div class="test reveal"><div class="stars">★★★★★</div><p>“Adriana es cercana y muy profesional. Me sentí escuchada desde la primera sesión.”</p><div class="who"><i>L</i><div><b>Laura P.</b><span>Paciente online</span></div></div></div>
+    </div>
+    <p class="ph">Testimonios de ejemplo para la vista previa. Se reemplazan por reseñas reales.</p>
+  </div>
+</section>
+
+<section id="preguntas">
+  <div class="wrap faq-grid">
+    <div class="reveal">
+      <span class="eyebrow">Preguntas frecuentes</span>
+      <h2 style="margin-top:14px;color:var(--plum2)">Resolvamos tus <em style="color:var(--purple)">dudas</em></h2>
+      <p class="lead" style="margin-top:14px">¿Tienes otra pregunta? Escríbeme y te respondo personalmente.</p>
+      <a href="#agenda" class="btn purple" style="margin-top:24px">Escribirme ahora</a>
+    </div>
+    <div class="reveal">
+      <details open><summary>¿Cómo funcionan las sesiones online?</summary><p>Son por videollamada. Solo necesitas conexión a internet y un lugar tranquilo y privado. Te envío el enlace antes de cada sesión.</p></details>
+      <details><summary>¿Atiendes a personas de otros países?</summary><p>Sí. Al ser online, puedo acompañarte desde cualquier país de habla hispana. Coordinamos el horario según tu zona.</p></details>
+      <details><summary>¿Es confidencial?</summary><p>Totalmente. Todo lo que compartes en sesión se maneja con secreto profesional y ética psicológica.</p></details>
+      <details><summary>¿Qué es el Método Vortex?</summary><p>Es mi programa propio para personas con alta responsabilidad: te ayuda a salir del modo reactivo, recuperar claridad mental y avanzar con equilibrio.</p></details>
+      <details><summary>¿Cuánto dura cada sesión?</summary><p>Las sesiones duran aproximadamente 50 minutos. La frecuencia la definimos juntos según tus objetivos.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="dark" id="agenda">
+  <div class="wrap book-grid">
+    <div class="reveal">
+      <span class="eyebrow">Agenda tu consulta</span>
+      <h2 style="margin-top:14px">Date el espacio que <em>le das a todos</em></h2>
+      <p class="lead" style="margin-top:16px">Déjame tus datos y te escribo con los horarios disponibles. El primer paso suele ser el más difícil; ya estás aquí.</p>
+      <div class="bullets">
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><div><b>Respuesta personal</b><span>Te contesto yo directamente, sin bots.</span></div></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><div><b>Horarios flexibles</b><span>Adaptados a tu rutina y zona horaria.</span></div></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><div><b>Espacio seguro</b><span>Confidencialidad total desde el primer mensaje.</span></div></div>
+      </div>
+    </div>
+    <form class="form reveal" id="form" novalidate>
+      <h3>Solicitar consulta</h3>
+      <p class="sub">Completa en menos de un minuto.</p>
+      <div class="row">
+        <label>Nombre<input name="nombre" required placeholder="Tu nombre" autocomplete="given-name"></label>
+        <label>País<input name="pais" placeholder="Ej. Venezuela" autocomplete="country-name"></label>
+      </div>
+      <label>Me interesa
+        <select name="servicio">
+          <option>Terapia individual online</option>
+          <option>Método Vortex</option>
+          <option>Vortex Rekor 888</option>
+          <option>Claridad mental y organización</option>
+          <option>Aún no lo sé, quiero orientación</option>
+        </select>
+      </label>
+      <label>Horario preferido
+        <div class="pills">
+          <label><input type="radio" name="horario" value="Mañana" checked><span>Mañana</span></label>
+          <label><input type="radio" name="horario" value="Tarde"><span>Tarde</span></label>
+          <label><input type="radio" name="horario" value="Noche"><span>Noche</span></label>
+        </div>
+      </label>
+      <label>¿Qué te gustaría trabajar? <span style="font-weight:400;color:var(--muted)">(opcional)</span><textarea name="mensaje" placeholder="Cuéntame brevemente cómo te sientes"></textarea></label>
+      <button class="btn gold" type="submit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg>
+        Enviar solicitud por Instagram</button>
+      <p class="priv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Tu mensaje se copia y se abre el chat privado con la Lic. Adriana Leal. Solo pégalo y envía.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-in">
+      <a href="#top" class="brand"><img src="img/logo.png" alt=""><span><b>Lic. Adriana Leal</b><small>Psicóloga Online · Método Vortex</small></span></a>
+      <div class="f-links">
+        <a href="#servicios">Servicios</a><a href="#vortex">Método Vortex</a><a href="#agenda">Agendar</a>
+        <a href="https://instagram.com/vortexrekor888" target="_blank" rel="noopener">Instagram @vortexrekor888</a>
+      </div>
+    </div>
+    <div class="crisis">
+      <span>Este servicio no sustituye la atención de emergencia. Si estás en crisis, contacta a los servicios de emergencia de tu país.</span>
+      <span>© <span id="y"></span> Lic. Adriana Leal · Web por <a href="https://instagram.com/rdev.lab" target="_blank" rel="noopener">R/DEV</a></span>
+    </div>
+  </div>
+</footer>
+
+<a href="#agenda" class="fab" aria-label="Agendar consulta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18M9 15l2 2 4-4"/></svg></a>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  var IG='vortexrekor888';
+  var nav=document.getElementById('nav'),links=document.getElementById('links'),burger=document.getElementById('burger');
+  function onScroll(){nav.classList.toggle('solid',scrollY>30)}
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+  burger.addEventListener('click',function(){var o=links.classList.toggle('open');burger.setAttribute('aria-expanded',o)});
+  links.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){links.classList.remove('open');burger.setAttribute('aria-expanded',false)})});
+  document.getElementById('y').textContent=new Date().getFullYear();
+
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+
+  var toast=document.getElementById('toast'),tt;
+  function show(m){toast.textContent=m;toast.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){toast.classList.remove('on')},4200)}
+
+  document.getElementById('form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var f=new FormData(this),n=(f.get('nombre')||'').trim();
+    if(!n){show('Escribe tu nombre para continuar.');this.nombre.focus();return}
+    var t='Hola Lic. Adriana, soy '+n+(f.get('pais')?' ('+f.get('pais')+')':'')+'. Me gustaría agendar una consulta.\n'+
+      'Me interesa: '+f.get('servicio')+'\nHorario preferido: '+f.get('horario')+
+      (f.get('mensaje')?'\nLo que quiero trabajar: '+f.get('mensaje'):'');
+    var go=function(){window.open('https://ig.me/m/'+IG,'_blank')};
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(function(){show('Mensaje copiado. Pégalo en el chat de Instagram y envíalo.');setTimeout(go,900)},function(){go()});
+    }else{go()}
+  });
+})();
+</script>
+</body>
+</html>
