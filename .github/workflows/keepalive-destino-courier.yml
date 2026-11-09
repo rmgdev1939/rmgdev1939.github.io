@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Consultar Supabase
         env:
-          # Clave publicable: ya es pública en la web de Destino Courier.
+          # Clave publicable: está hecha para ir en el navegador, no es secreta.
           SUPABASE_URL: https://yztghwhqozmtwezrabss.supabase.co
           SUPABASE_KEY: sb_publishable_RNtTq2jXKJkO5VY-1dqUDQ_CwUDfKev
         run: |
