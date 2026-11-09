@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Súper Once | Supermercado en Coro · Pide por WhatsApp</title>
+<meta name="description" content="Haz tu mercado en Súper Once desde el celular: ofertas, combos, carnicería Cortes, precios en $ y Bs a tasa BCV y pedido directo por WhatsApp. Coro, Falcón.">
+<meta property="og:title" content="Súper Once · Más que un súper, un hogar">
+<meta property="og:description" content="Ofertas, combos y tu mercado completo. Pide por WhatsApp y paga como prefieras, también con Cashea.">
+<meta property="og:image" content="icons/icon-512.png">
+<meta name="theme-color" content="#14882F">
+<meta name="robots" content="noindex">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Súper Once">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="demo-bar">Vista previa creada por <b>R/DEV</b> · precios y productos de ejemplo</div>
+
+<header class="top">
+  <div class="top-in">
+    <a class="brand" href="#" data-go="inicio" aria-label="Súper Once inicio">
+      <img src="icons/icon.svg" alt="" width="44" height="44">
+      <span class="brand-t"><b>Súper<i>Once</i></b><small>Más que un súper, un hogar</small></span>
+    </a>
+    <label class="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Busca harina, carne, café…" autocomplete="off">
+    </label>
+    <div class="top-actions">
+      <button class="rate" id="rateBtn" title="Tasa BCV del día">
+        <span class="rate-l">Tasa BCV</span>
+        <span class="rate-v" id="rateV">…</span>
+      </button>
+      <div class="cur" role="group" aria-label="Moneda">
+        <button data-cur="usd" class="on">$</button><button data-cur="bs">Bs</button>
+      </div>
+      <button class="cart-btn" id="cartBtn" aria-label="Ver carrito">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6.2"/><circle cx="10" cy="20.5" r="1.3"/><circle cx="17" cy="20.5" r="1.3"/></svg>
+        <span class="badge" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+  <div class="status-row">
+    <span class="open-pill" id="openPill">●</span>
+    <span>Av. Independencia, Coro · 8:00 am a 10:00 pm</span>
+    <a href="#" data-go="info">Cómo llegar ›</a>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="side" aria-label="Categorías">
+    <h3>Departamentos</h3>
+    <nav id="sideCats"></nav>
+    <div class="side-card cashea-mini">
+      <b>Compra con Cashea</b>
+      <span>Llévatelo hoy y paga en cuotas sin intereses.</span>
+    </div>
+  </aside>
+
+  <main id="main">
+    <!-- INICIO -->
+    <section id="v-inicio" class="view on">
+      <div class="hero" id="hero"></div>
+      <div class="hero-dots" id="heroDots"></div>
+
+      <div class="perks">
+        <div><span>🛵</span><b>Delivery en Coro</b><small>Gratis desde $50</small></div>
+        <div><span>💬</span><b>Pide por WhatsApp</b><small>Te confirmamos al momento</small></div>
+        <div><span>💳</span><b>Paga como quieras</b><small>Pago móvil, $, punto, Cashea</small></div>
+        <div><span>🥩</span><b>Carnicería Cortes</b><small>Tú lo pides, nosotros lo preparamos</small></div>
+      </div>
+
+      <div class="cats-strip" id="catStrip"></div>
+
+      <div class="sec-h"><h2>🔥 Precios de locura</h2><a href="#" data-go="ofertas">Ver todas ›</a></div>
+      <div class="row-scroll" id="rowOfertas"></div>
+
+      <div class="sec-h"><h2>🎁 Combos que rinden</h2><a href="#" data-go="combos">Ver combos ›</a></div>
+      <div class="combos" id="rowCombos"></div>
+
+      <div class="promo-orange">
+        <div>
+          <small>Solo este fin de semana</small>
+          <h3>Punto Naranja</h3>
+          <p>¡Da en el punto con tu compra! Ofertas en queso, huevos y carnes.</p>
+          <button class="btn btn-w" data-go="ofertas">Ver promociones</button>
+        </div>
+        <div class="po-ico">🧀🥚🥩</div>
+      </div>
+
+      <div class="sec-h"><h2>🥩 Carnicería Cortes</h2><a href="#" data-cat="carniceria">Ver todo ›</a></div>
+      <div class="row-scroll" id="rowCarne"></div>
+
+      <div class="sec-h"><h2>⭐ Lo más pedido</h2><a href="#" data-go="catalogo">Ver catálogo ›</a></div>
+      <div class="grid" id="gridTop"></div>
+
+      <div class="cashea" id="cashea">
+        <div class="cashea-logo"><span>C</span>cashea</div>
+        <div>
+          <h3>Compra hoy, paga después</h3>
+          <p>En Súper Once trabajamos con Cashea. Haz tu mercado y págalo en cuotas sin intereses. Elige <b>Cashea</b> como forma de pago al enviar tu pedido.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATÁLOGO -->
+    <section id="v-catalogo" class="view">
+      <div class="cat-head">
+        <h2 id="catTitle">Todo el súper</h2>
+        <select id="sort" aria-label="Ordenar">
+          <option value="pop">Más pedidos</option>
+          <option value="asc">Menor precio</option>
+          <option value="desc">Mayor precio</option>
+          <option value="off">Mayor descuento</option>
+        </select>
+      </div>
+      <div class="chips" id="chips"></div>
+      <div class="grid" id="gridCat"></div>
+      <p class="empty" id="emptyCat" hidden>No encontramos ese producto. Escríbenos por WhatsApp y te decimos si lo tenemos.</p>
+    </section>
+
+    <!-- OFERTAS -->
+    <section id="v-ofertas" class="view">
+      <div class="cat-head"><h2>🔥 Ofertas de la semana</h2></div>
+      <p class="lead">Precios especiales por tiempo limitado. Termina en <b id="countdown">--</b></p>
+      <div class="grid" id="gridOfertas"></div>
+    </section>
+
+    <!-- COMBOS -->
+    <section id="v-combos" class="view">
+      <div class="cat-head"><h2>🎁 Combos</h2></div>
+      <p class="lead">Todo lo que necesitas en un solo clic, con ahorro incluido.</p>
+      <div class="combos big" id="gridCombos"></div>
+    </section>
+
+    <!-- FAVORITOS -->
+    <section id="v-favoritos" class="view">
+      <div class="cat-head"><h2>❤️ Mis favoritos</h2></div>
+      <div class="grid" id="gridFav"></div>
+      <p class="empty" id="emptyFav">Toca el corazón de un producto para guardarlo aquí y pedirlo más rápido.</p>
+    </section>
+
+    <!-- INFO -->
+    <section id="v-info" class="view">
+      <div class="cat-head"><h2>📍 Visítanos</h2></div>
+      <div class="info-grid">
+        <div class="info-card">
+          <h3>Súper Once</h3>
+          <p>Avenida Independencia<br>Coro, estado Falcón</p>
+          <p class="hours"><b>Todos los días</b> 8:00 am a 10:00 pm</p>
+          <p><span class="open-pill" id="openPill2">●</span></p>
+          <div class="btns">
+            <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=S%C3%BAper+Once+Avenida+Independencia+Coro+Falc%C3%B3n">Abrir en Google Maps</a>
+            <a class="btn btn-o" target="_blank" rel="noopener" id="waInfo" href="#">Escribir por WhatsApp</a>
+            <a class="btn btn-o" target="_blank" rel="noopener" href="https://instagram.com/superonce.ve">Instagram @superonce.ve</a>
+          </div>
+        </div>
+        <div class="map-wrap">
+          <iframe title="Mapa Súper Once" loading="lazy" src="https://www.google.com/maps?q=Avenida+Independencia+Coro+Falc%C3%B3n&output=embed"></iframe>
+        </div>
+      </div>
+      <div class="info-card">
+        <h3>Formas de pago</h3>
+        <div class="pays">
+          <span>📱 Pago móvil</span><span>💵 Efectivo $</span><span>💳 Punto de venta</span><span>🟡 Cashea</span><span>🏦 Transferencia</span>
+        </div>
+        <p class="muted">Recibimos a tasa BCV del día.</p>
+      </div>
+      <div class="info-card">
+        <h3>Preguntas frecuentes</h3>
+        <details><summary>¿Cómo hago mi pedido?</summary><p>Agrega productos al carrito, elige delivery o retiro en tienda y toca “Enviar pedido por WhatsApp”. Te llega un mensaje listo con todo tu pedido y el total.</p></details>
+        <details><summary>¿Cuánto cuesta el delivery?</summary><p>Gratis en pedidos desde $50 dentro de Coro. Por debajo de ese monto, la tarifa depende de tu zona y te la confirmamos por WhatsApp.</p></details>
+        <details><summary>¿Los productos por kilo cómo se cobran?</summary><p>En carnicería y charcutería pides por kilo aproximado. Pesamos al preparar y te confirmamos el monto exacto antes de cobrar.</p></details>
+        <details><summary>¿Puedo pagar con Cashea?</summary><p>Sí. Elige Cashea como forma de pago y te indicamos cómo completar la compra en cuotas.</p></details>
+      </div>
+      <div class="install-card" id="installCard">
+        <img src="icons/icon.svg" alt="" width="56" height="56">
+        <div><b>Instala la app de Súper Once</b><span>Ábrela desde tu pantalla de inicio como cualquier app, sin ocupar espacio.</span></div>
+        <button class="btn" id="installBtn2">Instalar</button>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <p><b>Súper Once</b> · ¡Más que un súper, un hogar! 💚</p>
+      <p class="muted">Precios referenciales en dólares; el monto en bolívares se calcula a la tasa BCV del día.</p>
+      <p class="muted">Hecho por <a href="https://rmgdev1939.github.io" target="_blank" rel="noopener">R/DEV</a></p>
+    </footer>
+  </main>
+
+  <aside class="cart-panel" id="cartPanel" aria-label="Carrito">
+    <div class="cp-head">
+      <h3>Tu pedido</h3>
+      <button class="x" id="cartClose" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="ship-bar" id="shipBar"></div>
+    <div class="cp-items" id="cartItems"></div>
+    <div class="cp-form" id="cartForm">
+      <div class="seg" role="group" aria-label="Entrega">
+        <button data-del="delivery" class="on">🛵 Delivery</button>
+        <button data-del="retiro">🏪 Retiro en tienda</button>
+      </div>
+      <input id="fName" placeholder="Tu nombre" autocomplete="name">
+      <input id="fAddr" placeholder="Dirección o punto de referencia" autocomplete="street-address">
+      <select id="fPay" aria-label="Forma de pago">
+        <option>Pago móvil</option>
+        <option>Efectivo en dólares</option>
+        <option>Punto de venta</option>
+        <option>Cashea</option>
+        <option>Transferencia</option>
+      </select>
+      <textarea id="fNote" rows="2" placeholder="Notas: corte de la carne, marca preferida, sustituciones…"></textarea>
+    </div>
+    <div class="cp-total">
+      <div><span>Total</span><b id="tUsd">$0.00</b></div>
+      <div class="muted"><span>En bolívares</span><span id="tBs">Bs 0,00</span></div>
+      <div class="save" id="tSave" hidden></div>
+    </div>
+    <button class="btn btn-wa" id="sendWa">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.6-.1 1.2Z"/></svg>
+      Enviar pedido por WhatsApp
+    </button>
+    <button class="link-btn" id="repeatBtn" hidden>↺ Repetir mi último pedido</button>
+    <button class="link-btn" id="clearBtn">Vaciar carrito</button>
+  </aside>
+</div>
+<div class="scrim" id="scrim"></div>
+
+<nav class="bottom" aria-label="Navegación">
+  <button data-go="inicio" class="on"><span>🏠</span>Inicio</button>
+  <button data-go="catalogo"><span>🧺</span>Catálogo</button>
+  <button data-go="ofertas"><span>🔥</span>Ofertas</button>
+  <button data-go="favoritos"><span>❤️</span>Favoritos</button>
+  <button data-go="info"><span>📍</span>Tienda</button>
+</nav>
+
+<button class="float-cart" id="floatCart" hidden>
+  <span id="fcCount">0</span> productos · <b id="fcTotal">$0.00</b> <em>Ver pedido ›</em>
+</button>
+
+<div class="install-toast" id="installToast" hidden>
+  <img src="icons/icon.svg" alt="" width="40" height="40">
+  <div><b>Instala Súper Once</b><span id="installHint">Pide tu mercado en 1 toque desde tu pantalla de inicio.</span></div>
+  <button class="btn" id="installBtn">Instalar</button>
+  <button class="x" id="installX" aria-label="Cerrar">✕</button>
+</div>
+
+<div class="sheet" id="rateSheet" hidden>
+  <div class="sheet-in">
+    <h3>Tasa BCV del día</h3>
+    <p class="muted" id="rateSrc"></p>
+    <label>Bs por dólar <input id="rateInput" type="number" step="0.01" inputmode="decimal"></label>
+    <div class="btns"><button class="btn" id="rateSave">Guardar</button><button class="btn btn-o" id="rateCancel">Cerrar</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
