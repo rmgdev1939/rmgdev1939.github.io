@@ -40,7 +40,12 @@ try { lastRead = JSON.parse(localStorage.getItem('chamba.read') || '{}'); } catc
 const saveRead = () => { try { localStorage.setItem('chamba.read', JSON.stringify(lastRead)); } catch (e) {} };
 
 async function loadAll() {
-  if (!D.uid) return;
+  if (!D.uid) {
+    const [p, j] = await Promise.all([sb.from('profiles').select('*').limit(2000), sb.from('jobs').select('*').order('created_at', {ascending:false}).limit(500)]);
+    if (p.error || j.error) { console.error(p.error || j.error); toast('Sin conexión. Reintentando…'); return; }
+    D.profiles = Object.fromEntries(p.data.map(x => [x.id, x])); D.jobs = j.data; D.apps = []; D.msgs = []; D.me = null; D.loaded = true;
+    return;
+  }
   const [p, j, a, m] = await Promise.all([
     sb.from('profiles').select('*').limit(2000),
     sb.from('jobs').select('*').order('created_at', {ascending:false}).limit(500),
@@ -132,7 +137,7 @@ function renderNav(route) {
     : `<a class="tab ${route === n.id ? 'on' : ''}" href="#/${n.id}">${ICON[n.id]}${n.label}${badge(n.id)}</a>`).join('');
   const side = NAV.filter(n => !n.plus).concat(isAdmin() ? [{id:'admin', label:'Administrador'}] : []);
   $('#sideNav').innerHTML = side.map(n => `<a class="${route === n.id ? 'on' : ''}" href="#/${n.id}">${ICON[n.id]}${n.label}${badge(n.id)}</a>`).join('');
-  $('#topAvatar').innerHTML = D.me ? avatar(D.me.name, 36, D.uid) : '';
+  $('#topAvatar').innerHTML = D.me ? avatar(D.me.name, 36, D.uid) : '<span class="btn sm primary" style="height:34px">Entrar</span>';
 }
 
 let toastT;
@@ -171,7 +176,9 @@ function jobCard(j) {
     : ap ? ({aceptada:'<span class="pill green">Te eligieron</span>', completada:'<span class="pill green">✔ Hecha</span>', rechazada:'<span class="pill">No elegido</span>'}[ap.status] || '<span class="pill blue">Postulado</span>')
     : j.status !== 'abierta' ? '<span class="pill">Cerrada</span>'
     : j.urgent ? '<span class="pill hot">🔥 Urgente</span>' : '';
+  const photo = (j.photos || [])[0];
   return `<article class="card job" data-job="${j.id}">
+    ${photo ? `<div class="job-photo" style="background-image:url('${esc(photo)}')">${j.photos.length > 1 ? `<span class="pill dark">📷 ${j.photos.length}</span>` : ''}</div>` : ''}
     <div class="top">
       <div class="cat-ic" style="background:${c.c}">${c.e}</div>
       <div style="flex:1;min-width:0">
@@ -200,11 +207,12 @@ function viewExplorar() {
   const total = open.reduce((a, j) => a + val(j), 0);
   const users = Object.keys(D.profiles).length;
   const fn = first(D.me?.name);
+  const guest = !D.uid ? `<div class="row" style="margin-top:16px;gap:10px;flex-wrap:wrap"><button class="btn primary" data-open-auth="registro">Crear cuenta gratis</button><button class="btn" data-open-auth="entrar" style="background:transparent;color:#fff;border-color:#4A4A58">Entrar</button></div>` : '';
   return `
   <section class="hero"><div class="deco"></div><div class="deco2"></div><div class="inner">
     <h1>${fn ? `¡Épale, ${esc(fn)}! ` : ''}Encuentra <em>chamba</em> hoy mismo</h1>
     <p>Gana dinero haciendo lo que sabes, o consigue quien te resuelva en minutos.</p>
-    <div class="stats"><div><b>${open.length}</b><span>chambas abiertas</span></div><div><b>$${num(total)}</b><span>en pagos disponibles</span></div><div><b>${users}</b><span>usuarios</span></div></div>
+    <div class="stats"><div><b>${open.length}</b><span>chambas abiertas</span></div><div><b>$${num(total)}</b><span>en pagos disponibles</span></div><div><b>${users}</b><span>usuarios</span></div></div>${guest}
   </div></section>
   <label class="search">${ICON.explorar}<input id="q" type="search" placeholder="¿Qué chamba buscas? Ej: plomero, delivery…" value="${esc(UI.q)}" autocomplete="off">
     <select id="city" aria-label="Ciudad"><option value="">Todas</option>${CITIES.map(c => `<option ${UI.city === c ? 'selected' : ''}>${c}</option>`).join('')}</select></label>
@@ -228,17 +236,20 @@ function jobDetail(id) {
   if (mine) actions = `<a class="btn dark" href="#/mis" data-close>Ver postulantes (${j.applicants_count})</a>`;
   else if (ap) actions = `<button class="btn" data-chat-job="${j.id}">💬 Ir al chat</button><button class="btn" disabled>${ap.status === 'aceptada' ? '✅ Te eligieron' : ap.status === 'rechazada' ? 'Eligieron a otra persona' : ap.status === 'completada' ? '✔ Hecha' : '✓ Ya te postulaste'}</button>`;
   else if (j.status !== 'abierta') actions = `<button class="btn" disabled>Esta chamba ya no recibe postulaciones</button>`;
+  else if (!D.uid) actions = `<button class="btn primary" data-open-auth="registro">Crea tu cuenta para postularte</button>`;
   else actions = `<button class="btn" data-chat-job="${j.id}">💬 Preguntar</button><button class="btn primary" data-apply="${j.id}">Me interesa</button>`;
   const adminDel = isAdmin() && !mine ? `<button class="btn sm ghost" style="color:var(--red);margin-top:10px" data-admin-del="${j.id}">Eliminar (admin)</button>` : '';
   openSheet(`
     <div class="row" style="gap:12px;padding-right:36px"><div class="cat-ic" style="background:${c.c}">${c.e}</div><div><span class="pill">${c.name}</span>${j.urgent ? ' <span class="pill hot">🔥 Urgente</span>' : ''}</div></div>
+    ${(j.photos || []).length ? `<div class="gallery">${j.photos.map(u => `<a href="${esc(u)}" target="_blank" rel="noopener"><img src="${esc(u)}" alt="Foto de la chamba" loading="lazy"></a>`).join('')}</div>` : ''}
     <h2 style="margin-top:12px">${esc(j.title)}</h2>
     <p class="muted" style="font-size:13px;margin-top:4px">Publicada ${ago(j.created_at)} · ${j.applicants_count} postulante${j.applicants_count === 1 ? '' : 's'}</p>
     <div class="kv"><div><span>Pago</span><b>${money(j.pay, j.pay_type)}</b></div><div><span>Cuándo</span><b>${esc(j.when_txt || 'A convenir')}</b></div><div><span>Dónde</span><b>${esc(j.city)}</b></div></div>
     <p style="line-height:1.55;color:var(--ink2);white-space:pre-line">${esc(j.descr)}</p>
     ${j.zone ? `<p class="row muted" style="gap:5px;margin-top:10px;font-size:14px">${ICON.pin}${esc(j.zone)}, ${esc(j.city)}</p>` : ''}
-    <div class="card row" style="padding:12px 14px;margin-top:14px;box-shadow:none">${avatar(p.name, 42, p.id)}<div class="li-main"><b>${esc(p.name)}${mine ? ' (tú)' : ''}</b><span>${stars(p.rating)} · ${p.done} chambas hechas</span></div></div>
-    <div class="sticky-actions">${actions}</div>${adminDel}`);
+    <a class="card row" href="#/u/${p.id}" data-close style="padding:12px 14px;margin-top:14px;box-shadow:none">${avatar(p.name, 42, p.id)}<div class="li-main"><b>${esc(p.name)}${mine ? ' (tú)' : ''}</b><span>${stars(p.rating)} · ${p.done} chambas hechas</span></div><span class="muted" style="font-size:13px;font-weight:700">Ver perfil ›</span></a>
+    <div class="sticky-actions">${actions}</div>
+    <div class="row" style="gap:8px;margin-top:8px"><button class="btn sm wa" data-share="${j.id}">🟢 Compartir por WhatsApp</button><button class="btn sm" data-copy="${j.id}">🔗 Copiar link</button></div>${adminDel}`);
 }
 
 function applyForm(id) {
@@ -279,6 +290,7 @@ function viewPublicar() {
       <div class="field"><label>Zona</label><input name="zone" maxlength="40" placeholder="Ej: Chacao"></div>
     </div>
     <div class="field"><label>¿Cuándo?</label><input name="when_txt" maxlength="30" placeholder="Hoy, mañana, sábado 10 am…" required></div>
+    <div class="field"><label>Fotos <span class="muted">(opcional, hasta 3)</span></label><label class="photo-drop"><input type="file" id="pubPhotos" accept="image/*" multiple hidden><span>📷 Agregar fotos</span></label><div class="photo-prev" id="photoPrev"></div></div>
     <label class="switch" style="margin-bottom:16px">🔥 Es urgente <input type="checkbox" name="urgent"></label>
     <button class="btn primary block" type="submit">Publicar chamba</button>
   </form>`;
@@ -373,9 +385,64 @@ function viewAdmin() {
   <div class="stats3"><div class="card stat"><b>${s.users ?? users.length}</b><span>Usuarios</span></div><div class="card stat"><b>${s.jobs ?? D.jobs.length}</b><span>Chambas</span></div><div class="card stat"><b>${s.applications ?? '…'}</b><span>Postulaciones</span></div></div>
   <div class="stats3"><div class="card stat"><b>${s.open ?? '…'}</b><span>Abiertas</span></div><div class="card stat"><b>${s.done ?? '…'}</b><span>Completadas</span></div><div class="card stat"><b>$${num(s.volume ?? 0)}</b><span>Movido en chambas</span></div></div>
   <div class="sec-title"><h2>Usuarios</h2><span class="muted">${users.length}</span></div>
-  <div class="card" style="overflow:hidden">${users.map(u => `<div class="list-item" style="cursor:default">${avatar(u.name, 40, u.id)}<div class="li-main"><b>${esc(u.name)}${u.id === D.uid ? ' (tú)' : ''}${u.banned ? ' <span class="pill hot">Bloqueado</span>' : ''}</b><span>${esc(emails[u.id] || '')} · ${esc(u.city)} · ${ago(u.created_at)}</span></div>${u.id === D.uid ? '' : `<button class="btn sm" data-ban="${u.id}">${u.banned ? 'Desbloquear' : 'Bloquear'}</button>`}</div>`).join('')}</div>
+  <div class="card" style="overflow:hidden">${users.map(u => `<div class="list-item" style="cursor:default">${avatar(u.name, 40, u.id)}<div class="li-main"><b>${esc(u.name)}${u.id === D.uid ? ' (tú)' : ''}${u.banned ? ' <span class="pill hot">Bloqueado</span>' : ''}</b><span>${esc(emails[u.id] || '')} · ${esc(u.city)} · ${ago(u.created_at)}</span></div>${u.id === D.uid ? '' : `<div class="row" style="gap:6px;flex:none"><button class="btn sm" data-reset="${u.id}" title="Nueva contraseña">🔑</button><button class="btn sm" data-ban="${u.id}">${u.banned ? 'Desbloquear' : 'Bloquear'}</button></div>`}</div>`).join('')}</div>
   <div class="sec-title"><h2>Chambas</h2><span class="muted">${D.jobs.length}</span></div>
   <div class="card" style="overflow:hidden">${D.jobs.length ? D.jobs.map(j => `<div class="list-item"><div class="li-main" data-job="${j.id}"><b>${esc(j.title)}</b><span>${esc(personOf(j.author).name)} · $${num(j.pay)} · ${j.status} · ${ago(j.created_at)}</span></div><button class="btn sm ghost" style="color:var(--red)" data-admin-del="${j.id}">Eliminar</button></div>`).join('') : '<div class="empty"><p>Sin chambas aún</p></div>'}</div>`;
+}
+
+/* ---------- fotos ---------- */
+let pendingPhotos = [];
+function shrink(file, max = 1280) {
+  return new Promise((res, rej) => {
+    const img = new Image(); img.onload = () => {
+      const k = Math.min(1, max / Math.max(img.width, img.height));
+      const c = document.createElement('canvas'); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      c.toBlob(b => b ? res(b) : rej(new Error('blob')), 'image/jpeg', .82); URL.revokeObjectURL(img.src);
+    }; img.onerror = rej; img.src = URL.createObjectURL(file);
+  });
+}
+async function uploadPhotos(blobs) {
+  const urls = [];
+  for (const b of blobs) {
+    const path = `${D.uid}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.jpg`;
+    const {error} = await sb.storage.from('chamba-fotos').upload(path, b, {contentType: 'image/jpeg', upsert: false});
+    if (error) throw error;
+    urls.push(sb.storage.from('chamba-fotos').getPublicUrl(path).data.publicUrl);
+  }
+  return urls;
+}
+
+/* ---------- perfil público ---------- */
+function viewUser(id) {
+  const u = D.profiles[id]; if (!u) return '<div class="empty card"><div class="big">🤷</div><h3>Perfil no encontrado</h3></div>';
+  const p = personOf(id);
+  const reviews = D.jobs.filter(j => j.assigned === id && j.status === 'completada' && j.rating).sort((a, b) => T(b.created_at) - T(a.created_at));
+  const open = D.jobs.filter(j => j.author === id && j.status === 'abierta');
+  return `<div class="row" style="margin-bottom:12px"><a class="btn sm" href="javascript:history.back()">${ICON.back} Volver</a></div>
+  <div class="card prof-head">${avatar(u.name, 68, id)}<div class="li-main"><h2>${esc(u.name)}${id === D.uid ? ' (tú)' : ''}</h2><span>${ICON.pin} ${esc(u.city)} · en Chamba desde ${new Date(u.created_at).toLocaleDateString('es', {month:'long', year:'numeric'})}</span>${u.available !== false ? '<span class="pill green" style="margin-top:6px;display:inline-flex">🟢 Disponible</span>' : ''}${u.bio ? `<p style="margin-top:8px;font-size:14px;color:var(--ink2)">${esc(u.bio)}</p>` : ''}</div></div>
+  <div class="stats3"><div class="card stat"><b>${p.rating == null ? '—' : '★ ' + p.rating.toFixed(1)}</b><span>Calificación</span></div><div class="card stat"><b>${p.done}</b><span>Chambas hechas</span></div><div class="card stat"><b>${reviews.length}</b><span>Reseñas</span></div></div>
+  ${(u.skills || []).length ? `<div class="card form" style="margin-top:12px"><div class="field" style="margin:0"><label>Sabe hacer</label><div class="skill-tags">${u.skills.filter(s => CAT[s]).map(s => `<span class="pill orange">${CAT[s].e} ${CAT[s].name}</span>`).join('')}</div></div></div>` : ''}
+  <div class="sec-title"><h2>Reseñas</h2></div>
+  ${reviews.length ? `<div class="card" style="overflow:hidden">${reviews.map(j => { const a = personOf(j.author); return `<div class="applicant">${avatar(a.name, 36, a.id)}<div class="li-main" style="white-space:normal"><div class="row between"><b>${esc(a.name)}</b><span class="star">${'★'.repeat(j.rating)}<span class="muted">${'★'.repeat(5 - j.rating)}</span></span></div><span>${esc(j.title)}</span>${j.review ? `<p>“${esc(j.review)}”</p>` : ''}</div></div>`; }).join('')}</div>` : '<div class="empty card"><p>Todavía no tiene reseñas.</p></div>'}
+  ${open.length ? `<div class="sec-title"><h2>Chambas que publicó</h2></div><div class="grid">${open.map(jobCard).join('')}</div>` : ''}`;
+}
+
+/* ---------- admin: nueva contraseña ---------- */
+function adminReset(uid) {
+  const u = D.profiles[uid];
+  const pass = 'Chamba-' + Math.random().toString(36).slice(2, 8);
+  openSheet(`<h2>Nueva contraseña</h2><p class="muted" style="margin:4px 0 16px">Para ${esc(u?.name)}. Pásasela y que la cambie en su perfil.</p>
+    <form id="rsF"><div class="field"><label>Contraseña nueva</label><input name="p" value="${pass}" minlength="6" required></div><button class="btn primary block">Guardar contraseña</button></form>`);
+  $('#rsF').onsubmit = e => {
+    e.preventDefault();
+    busy(e.target.querySelector('button'), async () => {
+      const {data} = await sb.auth.getSession();
+      const r = await fetch(`${SB_URL}/functions/v1/chamba-admin`, {method:'POST', headers:{'Content-Type':'application/json', apikey: SB_KEY, Authorization:`Bearer ${data.session.access_token}`}, body: JSON.stringify({action:'reset', user: uid, password: e.target.p.value})}).then(r => r.json()).catch(() => ({error:'Sin conexión'}));
+      if (r.error) return toast(r.error);
+      closeSheet(); toast('Contraseña cambiada ✅');
+    });
+  };
 }
 
 /* ---------- acceso ---------- */
@@ -398,7 +465,7 @@ function authSheet(tab = 'registro') {
       <div class="field"><label>¿Qué sabes hacer? <span class="muted">(opcional)</span></label><div class="opt-grid">${CATS.map(c => `<button type="button" class="opt" data-skill="${c.id}"><span class="e">${c.e}</span>${c.name}</button>`).join('')}</div></div>` : ''}
       <p id="authErr" class="hide" style="color:var(--red);font-weight:600;font-size:14px;margin-bottom:12px"></p>
       <button class="btn primary block" type="submit">${reg ? 'Crear cuenta' : 'Entrar'}</button>
-    </form>`, {noClose: true});
+    </form>`);
   $('#sheet').querySelectorAll('[data-skill]').forEach(b => b.onclick = () => { b.classList.toggle('on'); sel.has(b.dataset.skill) ? sel.delete(b.dataset.skill) : sel.add(b.dataset.skill); });
   $('#sheet').querySelectorAll('[data-auth]').forEach(b => b.onclick = () => authSheet(b.dataset.auth));
   $('#authF').onsubmit = e => {
@@ -464,10 +531,12 @@ function changePass() {
 
 /* ---------- router ---------- */
 function route() {
-  if (!D.uid || !D.loaded) { renderNav(''); $('#view').innerHTML = D.uid ? '<div class="empty"><p>Cargando…</p></div>' : viewWelcome(); return; }
+  if (!D.loaded) { renderNav(''); $('#view').innerHTML = '<div class="empty"><p>Cargando…</p></div>'; return; }
   if (D.me?.banned) { $('#view').innerHTML = '<div class="empty card"><div class="big">⛔</div><h3>Tu cuenta está bloqueada</h3><p>Escríbenos a @rdev.lab en Instagram si crees que es un error.</p></div>'; return; }
   const h = location.hash.replace(/^#\/?/, '') || 'explorar';
-  const [r, arg] = h.split('/');
+  let [r, arg] = h.split('/');
+  if (r === 'chamba') { r = 'explorar'; if (arg && !$('#modal').hidden === false) setTimeout(() => jobDetail(arg), 0); }
+  if (!D.uid && !['explorar', 'u'].includes(r)) { r = 'explorar'; setTimeout(() => authSheet(h.startsWith('perfil') ? 'entrar' : 'registro'), 0); }
   const v = $('#view');
   const active = r === 'chat' ? 'mensajes' : r;
   const keepScroll = v.dataset.r === h, y = window.scrollY;
@@ -486,6 +555,7 @@ function route() {
     }
     case 'perfil': v.innerHTML = viewPerfil(); break;
     case 'admin': v.innerHTML = viewAdmin(); break;
+    case 'u': v.innerHTML = viewUser(arg); break;
     default: v.innerHTML = viewExplorar();
   }
   renderNav(active);
@@ -516,15 +586,21 @@ function bindView(r, arg) {
   const pub = $('#pubF');
   if (pub) {
     let cat = 'hogar';
+    const pf = $('#pubPhotos');
+    const drawPrev = () => { $('#photoPrev').innerHTML = pendingPhotos.map((b, i) => `<div class="pp"><img src="${URL.createObjectURL(b)}" alt=""><button type="button" data-rmphoto="${i}" aria-label="Quitar">✕</button></div>`).join(''); $('#photoPrev').querySelectorAll('[data-rmphoto]').forEach(x => x.onclick = () => { pendingPhotos.splice(+x.dataset.rmphoto, 1); drawPrev(); }); };
+    pf.onchange = async () => { for (const f of [...pf.files]) { if (pendingPhotos.length >= 3) { toast('Máximo 3 fotos'); break; } try { pendingPhotos.push(await shrink(f)); } catch (e) { toast('Esa imagen no se pudo leer'); } } pf.value = ''; drawPrev(); };
+    drawPrev();
     pub.querySelectorAll('[data-pcat]').forEach(b => b.onclick = () => { pub.querySelectorAll('[data-pcat]').forEach(x => x.classList.remove('on')); b.classList.add('on'); cat = b.dataset.pcat; });
     pub.onsubmit = e => {
       e.preventDefault();
       const f = new FormData(pub);
       busy(pub.querySelector('button[type=submit]'), async () => {
-        const row = {author: D.uid, title: String(f.get('title')).trim(), cat, descr: String(f.get('descr')).trim(), pay: +f.get('pay'), pay_type: f.get('pay_type'), city: f.get('city'), zone: String(f.get('zone')).trim(), when_txt: String(f.get('when_txt')).trim(), urgent: !!f.get('urgent')};
+        let photos = [];
+        try { photos = await uploadPhotos(pendingPhotos); } catch (err) { console.error(err); return toast('No se pudieron subir las fotos'); }
+        const row = {photos, author: D.uid, title: String(f.get('title')).trim(), cat, descr: String(f.get('descr')).trim(), pay: +f.get('pay'), pay_type: f.get('pay_type'), city: f.get('city'), zone: String(f.get('zone')).trim(), when_txt: String(f.get('when_txt')).trim(), urgent: !!f.get('urgent')};
         const r = await sb.from('jobs').insert(row);
         if (r.error) return toast(errMsg(r.error));
-        await loadAll(); UI.misTab = 'publicadas'; pub.reset();
+        await loadAll(); UI.misTab = 'publicadas'; pub.reset(); pendingPhotos = [];
         toast('¡Chamba publicada! 🎉'); location.hash = '#/mis';
       });
     };
@@ -540,7 +616,7 @@ function bindView(r, arg) {
   };
   const em = $('#editMe'); if (em) em.onclick = editProfile;
   const cp = $('#chPass'); if (cp) cp.onclick = changePass;
-  const lo = $('#logout'); if (lo) lo.onclick = async () => { await sb.auth.signOut(); };
+  const lo = $('#logout'); if (lo) lo.onclick = async () => { history.replaceState(null, '', '#/explorar'); await sb.auth.signOut(); };
   const av = $('#avail'); if (av) av.onchange = async () => { await sb.from('profiles').update({available: av.checked}).eq('id', D.uid); await loadAll(); toast(av.checked ? 'Ahora estás disponible 🟢' : 'Pausaste tu disponibilidad'); };
   const sh = $('#shareApp'); if (sh) sh.onclick = async () => {
     const data = {title:'Chamba', text:'Únete a Chamba: consigue o publica trabajos rápido 👇', url: location.origin + location.pathname};
@@ -551,11 +627,21 @@ function bindView(r, arg) {
 
 /* ---------- eventos globales ---------- */
 document.addEventListener('click', e => {
-  const t = e.target.closest('[data-close],[data-job],[data-apply],[data-cat],[data-sort],[data-mis],[data-go],[data-chat-job],[data-chat-with],[data-accept],[data-complete],[data-rate],[data-del],[data-admin-del],[data-ban],[data-open-auth]');
+  const t = e.target.closest('[data-close],[data-job],[data-apply],[data-cat],[data-sort],[data-mis],[data-go],[data-chat-job],[data-chat-with],[data-accept],[data-complete],[data-rate],[data-del],[data-admin-del],[data-ban],[data-open-auth],[data-share],[data-copy],[data-reset]');
   if (!t) return;
   const d = t.dataset;
   if ('close' in d) { if ($('#modal').dataset.locked && t.classList.contains('modal-bg')) return; closeSheet(); if (t.tagName !== 'A') return; }
   if (d.openAuth) return authSheet(d.openAuth);
+  if (d.share || d.copy) {
+    const j = D.jobs.find(x => x.id === (d.share || d.copy)); if (!j) return;
+    const url = location.origin + location.pathname + '#/chamba/' + j.id;
+    const text = `🔥 Chamba: ${j.title} · $${num(j.pay)}${j.pay_type === 'hora' ? '/hora' : ''} en ${j.city}. Míralo en Chamba 👉 ${url}`;
+    if (d.share) { window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank', 'noopener'); return; }
+    (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(() => toast('Link copiado 📋'), () => toast(url));
+    return;
+  }
+  if (d.reset) return adminReset(d.reset);
+  if (!D.uid && (d.apply || d.chatJob || d.chatWith || d.go === '#/publicar')) return authSheet('registro');
   if (d.job) return jobDetail(d.job);
   if (d.apply) return applyForm(d.apply);
   if (d.cat !== undefined && t.classList.contains('chip')) { UI.cat = d.cat; return route(); }
@@ -575,13 +661,18 @@ document.addEventListener('click', e => {
   if (d.complete) {
     const j = D.jobs.find(x => x.id === d.complete); const p = personOf(j.assigned);
     openSheet(`<h2>¿Cómo te fue con ${esc(first(p.name))}?</h2><p class="muted" style="margin:6px 0 18px">Tu calificación ayuda a otros a elegir mejor.</p>
-      <div class="row" style="justify-content:center;gap:6px">${[1,2,3,4,5].map(n => `<button data-rate="${j.id}|${n}" style="font-size:40px;line-height:1" aria-label="${n} estrellas">⭐</button>`).join('')}</div>`);
+      <div class="row rate-row" style="justify-content:center;gap:6px">${[1,2,3,4,5].map(n => `<button type="button" data-star="${n}" style="font-size:40px;line-height:1" aria-label="${n} estrellas">⭐</button>`).join('')}</div>
+      <div class="field" style="margin-top:16px"><label>Escribe una reseña <span class="muted">(opcional)</span></label><textarea id="revTxt" maxlength="300" placeholder="Ej: Muy puntual y dejó todo limpio."></textarea></div>
+      <button class="btn primary block" data-rate="${j.id}" disabled>Calificar y cerrar chamba</button>`);
+    let sel = 0; const paint = () => $('#sheet').querySelectorAll('[data-star]').forEach(b => b.style.opacity = +b.dataset.star <= sel ? 1 : .3);
+    paint(); $('#sheet').querySelectorAll('[data-star]').forEach(b => b.onclick = () => { sel = +b.dataset.star; paint(); const r = $('#sheet [data-rate]'); r.disabled = false; r.dataset.stars = sel; });
     return;
   }
   if (d.rate) {
-    const [jid, n] = d.rate.split('|');
-    return busy(null, async () => {
-      const r = await sb.rpc('complete_job', {job: jid, stars: +n});
+    const jid = d.rate, n = +d.stars, comment = ($('#revTxt')?.value || '').trim();
+    if (!n) return;
+    return busy(t, async () => {
+      const r = await sb.rpc('complete_job', {job: jid, stars: n, comment});
       if (r.error) return toast(errMsg(r.error));
       await loadAll(); closeSheet(); toast(`¡Chamba completada! Calificaste con ${n} ⭐`); route();
     });
@@ -611,7 +702,7 @@ window.addEventListener('hashchange', () => { if (!$('#modal').dataset.locked) c
 let channel, refreshT;
 function subscribe() {
   if (channel) sb.removeChannel(channel);
-  channel = sb.channel('chamba-live')
+  channel = sb.channel('chamba-live-' + (D.uid || 'anon'))
     .on('postgres_changes', {event:'*', schema:'public', table:'jobs'}, () => refresh())
     .on('postgres_changes', {event:'*', schema:'public', table:'profiles'}, () => refresh())
     .on('postgres_changes', {event:'*', schema:'public', table:'applications'}, p => {
@@ -632,9 +723,11 @@ document.addEventListener('visibilitychange', () => { if (!document.hidden && D.
 
 async function onSession(session) {
   D.session = session; D.uid = session?.user?.id || null; D.email = (session?.user?.email || '').toLowerCase();
-  if (!D.uid) { D.loaded = false; D.me = null; if (channel) { sb.removeChannel(channel); channel = null; } route(); authSheet('registro'); return; }
-  route();
+  if (channel) { sb.removeChannel(channel); channel = null; }
+  if (!D.uid) D.me = null;
+  D.loaded = false; route();
   await loadAll(); route(); subscribe();
+  const m = location.hash.match(/^#\/chamba\/([\w-]+)/); if (m) jobDetail(m[1]);
 }
 
 /* PWA */
