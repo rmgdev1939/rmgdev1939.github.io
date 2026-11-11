@@ -531,7 +531,7 @@ function changePass() {
 
 /* ---------- router ---------- */
 function route() {
-  if (!D.loaded) { renderNav(''); $('#view').innerHTML = '<div class="empty"><p>Cargando…</p></div>'; return; }
+  if (!D.loaded) { renderNav(''); $('#view').innerHTML = '<div class="skeleton" style="height:230px;margin-bottom:16px"></div><div class="grid g3"><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div></div>'; return; }
   if (D.me?.banned) { $('#view').innerHTML = '<div class="empty card"><div class="big">⛔</div><h3>Tu cuenta está bloqueada</h3><p>Escríbenos a @rdev.lab en Instagram si crees que es un error.</p></div>'; return; }
   const h = location.hash.replace(/^#\/?/, '') || 'explorar';
   let [r, arg] = h.split('/');
